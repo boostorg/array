@@ -21,10 +21,7 @@
 #include <iterator>
 #include <algorithm>
 
-// BUG-FIX for compilers that don't support
-// std::size_t and std::ptrdiff_t yet
-// (such as gcc)
-#include <boost/config.hpp>
+#include <boost/config.hpp> // for std::size_t and std::ptrdiff_t workarounds
 
 namespace boost {
 
@@ -48,17 +45,10 @@ namespace boost {
         const_iterator begin() const { return elems; }
         iterator end() { return elems+N; }
         const_iterator end() const { return elems+N; }
-
+    
         // reverse iterator support
-# if !defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
         typedef std::reverse_iterator<iterator> reverse_iterator;
         typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
-# else
-        // workaround for broken reverse_iterator implementations due to no partial specialization
-        typedef std::reverse_iterator<iterator,T> reverse_iterator;
-        typedef std::reverse_iterator<const_iterator,T> const_reverse_iterator;
-# endif
-
         reverse_iterator rbegin() { return reverse_iterator(end()); }
         const_reverse_iterator rbegin() const {
             return const_reverse_iterator(end());
@@ -73,6 +63,11 @@ namespace boost {
         const_reference operator[](size_type i) const { return elems[i]; }
 
         // at() with range check
+        // note: rangecheck() is public because we have implemented array
+        //       as aggregate, which forbids non-public members
+        void rangecheck (size_type i) const {
+            if (i >= size()) { throw std::range_error("array"); }
+        }
         reference at(size_type i) { rangecheck(i); return elems[i]; }
         const_reference at(size_type i) const { rangecheck(i); return elems[i]; }
     
@@ -88,9 +83,8 @@ namespace boost {
         static size_type max_size() { return N; }
         enum { static_size = N };
 
-  public:
         // swap (note: linear complexity)
-        void swap (array<T,N>& y) {
+        void swap (array& y) {
             std::swap_ranges(begin(),end(),y.begin());
         }
 
@@ -98,26 +92,10 @@ namespace boost {
         const T* data() const { return elems; }
 
         // assignment with type conversion
-        template <typename T2>
-        array<T,N>& operator= (const array<T2,N>& rhs) {
-            std::copy(rhs.begin(),rhs.end(), begin());
-            return *this;
-        }
-
-        // assign one value to all elements
-        void assign (const T& value)
-        {
-            std::fill_n(begin(),size(),value);
-        }
-
-# ifndef BOOST_NO_PRIVATE_IN_AGGREGATE
-      private:
-# endif
-        // private member functions are allowed in aggregates [ISO 8.5.1]
-        static void rangecheck (size_type i) {
-            if (i >= size()) { throw std::range_error("array"); }
-        }
-
+        //template <typename T2>
+        //T& operator= (const array<T2,N>& rhs) {
+        //    std::copy (begin(),end(),rhs.begin());
+        //}
     };
 
     // comparisons
@@ -148,7 +126,7 @@ namespace boost {
 
     // global swap()
     template<class T, std::size_t N>
-    inline void swap (array<T,N>& x, array<T,N>& y) {
+    inline void swap (const array<T,N>& x, const array<T,N>& y) {
         x.swap(y);
     }
 

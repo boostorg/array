@@ -54,11 +54,10 @@ int main()
 	          << std::endl;
     }
 
-    typedef boost::array<double,6> DArray;
-    typedef boost::array<int,6> IArray;
-    IArray ia = { 1, 2, 3, 4, 5, 6 };
-    DArray da;
-    da = ia;
-    da.assign(42);
+    //typedef boost::array<double,6> DArray;
+    //typedef boost::array<int,6> IArray;
+    //IArray ia = { { 1, 2, 3, 4, 5, 6 } };
+    //DArray da;
+    //da.assign(ia);
 }
 
