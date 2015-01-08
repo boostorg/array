@@ -49,7 +49,6 @@
 // Handles broken standard libraries better than <iterator>
 #include <boost/detail/iterator.hpp>
 #include <boost/throw_exception.hpp>
-#include <boost/functional/hash_fwd.hpp>
 #include <algorithm>
 
 // FIXES for broken compilers
@@ -412,6 +411,7 @@ namespace boost {
     }
 #endif
 
+    template <class It> std::size_t hash_range(It, It);
 
     template<class T, std::size_t N>
     std::size_t hash_value(const array<T,N>& arr)
