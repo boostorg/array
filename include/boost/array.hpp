@@ -13,6 +13,7 @@
  * accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
  *
+ *  4 Aug 2015 - Added more constexpr and noexcept (Antony Polukhin)
  *  9 Jan 2013 - (mtc) Added constexpr
  * 14 Apr 2012 - (mtc) Added support for boost::hash
  * 28 Dec 2010 - (mtc) Added cbegin and cend (and crbegin and crend) for C++Ox compatibility.
@@ -73,13 +74,13 @@ namespace boost {
         typedef std::ptrdiff_t difference_type;
 
         // iterator support
-        iterator        begin()       { return elems; }
-        const_iterator  begin() const { return elems; }
-        const_iterator cbegin() const { return elems; }
+        BOOST_CXX14_CONSTEXPR   iterator        begin()       BOOST_NOEXCEPT { return elems; }
+        BOOST_CONSTEXPR         const_iterator  begin() const BOOST_NOEXCEPT { return elems; }
+        BOOST_CONSTEXPR         const_iterator cbegin() const BOOST_NOEXCEPT { return elems; }
         
-        iterator        end()       { return elems+N; }
-        const_iterator  end() const { return elems+N; }
-        const_iterator cend() const { return elems+N; }
+        BOOST_CXX14_CONSTEXPR   iterator        end()         BOOST_NOEXCEPT { return elems+N; }
+        BOOST_CONSTEXPR         const_iterator  end()   const BOOST_NOEXCEPT { return elems+N; }
+        BOOST_CONSTEXPR         const_iterator cend()   const BOOST_NOEXCEPT { return elems+N; }
 
         // reverse iterator support
 #if !defined(BOOST_MSVC_STD_ITERATOR) && !defined(BOOST_NO_STD_ITERATOR_TRAITS)
@@ -96,62 +97,67 @@ namespace boost {
         typedef std::reverse_iterator<const_iterator,T> const_reverse_iterator;
 #endif
 
-        reverse_iterator rbegin() { return reverse_iterator(end()); }
-        const_reverse_iterator rbegin() const {
+        reverse_iterator rbegin() BOOST_NOEXCEPT {
+            return reverse_iterator(end());
+        }
+        const_reverse_iterator rbegin() const BOOST_NOEXCEPT {
             return const_reverse_iterator(end());
         }
-        const_reverse_iterator crbegin() const {
+        const_reverse_iterator crbegin() const BOOST_NOEXCEPT {
             return const_reverse_iterator(end());
         }
 
-        reverse_iterator rend() { return reverse_iterator(begin()); }
-        const_reverse_iterator rend() const {
+        reverse_iterator rend() BOOST_NOEXCEPT {
+            return reverse_iterator(begin());
+        }
+        const_reverse_iterator rend() const BOOST_NOEXCEPT {
             return const_reverse_iterator(begin());
         }
-        const_reverse_iterator crend() const {
+        const_reverse_iterator crend() const BOOST_NOEXCEPT {
             return const_reverse_iterator(begin());
         }
 
         // operator[]
-        reference operator[](size_type i) 
-        { 
-            return BOOST_ASSERT_MSG( i < N, "out of range" ), elems[i]; 
+        BOOST_CXX14_CONSTEXPR reference operator[](size_type i) {
+            BOOST_ASSERT_MSG( i < N, "out of range" );
+            return elems[i];
         }
-        
-        /*BOOST_CONSTEXPR*/ const_reference operator[](size_type i) const 
-        {     
-            return BOOST_ASSERT_MSG( i < N, "out of range" ), elems[i]; 
+        BOOST_CXX14_CONSTEXPR const_reference operator[](size_type i) const {
+            BOOST_ASSERT_MSG( i < N, "out of range" );
+            return elems[i];
         }
 
         // at() with range check
-        reference                           at(size_type i)       { return rangecheck(i), elems[i]; }
-        /*BOOST_CONSTEXPR*/ const_reference at(size_type i) const { return rangecheck(i), elems[i]; }
+        BOOST_CXX14_CONSTEXPR reference at(size_type i) {
+            rangecheck(i);
+            return elems[i];
+        }
+        BOOST_CXX14_CONSTEXPR const_reference at(size_type i) const {
+            rangecheck(i);
+            return elems[i];
+        }
     
         // front() and back()
-        reference front() 
-        { 
+        BOOST_CXX14_CONSTEXPR reference front() BOOST_NOEXCEPT {
             return elems[0]; 
         }
         
-        BOOST_CONSTEXPR const_reference front() const 
-        {
+        BOOST_CONSTEXPR const_reference front() const BOOST_NOEXCEPT {
             return elems[0];
         }
-        
-        reference back() 
-        { 
+
+        BOOST_CXX14_CONSTEXPR reference back() BOOST_NOEXCEPT {
             return elems[N-1]; 
         }
         
-        BOOST_CONSTEXPR const_reference back() const 
-        { 
+        BOOST_CONSTEXPR const_reference back() const BOOST_NOEXCEPT {
             return elems[N-1]; 
         }
 
         // size is constant
-        static BOOST_CONSTEXPR size_type size() { return N; }
-        static BOOST_CONSTEXPR bool empty() { return false; }
-        static BOOST_CONSTEXPR size_type max_size() { return N; }
+        static BOOST_CONSTEXPR size_type size() BOOST_NOEXCEPT { return N; }
+        static BOOST_CONSTEXPR bool empty() BOOST_NOEXCEPT { return false; }
+        static BOOST_CONSTEXPR size_type max_size() BOOST_NOEXCEPT { return N; }
         enum { static_size = N };
 
         // swap (note: linear complexity)
@@ -160,12 +166,12 @@ namespace boost {
                 boost::swap(elems[i],y.elems[i]);
         }
 
-        // direct access to data (read-only)
-        const T* data() const { return elems; }
-        T* data() { return elems; }
+        // direct access to data
+        BOOST_CXX14_CONSTEXPR T* data() BOOST_NOEXCEPT { return elems; }
+        BOOST_CONSTEXPR const T* data() const BOOST_NOEXCEPT { return elems; }
 
         // use array as C array (direct read/write access to data)
-        T* c_array() { return elems; }
+        BOOST_CXX14_CONSTEXPR T* c_array() BOOST_NOEXCEPT { return elems; }
 
         // assignment with type conversion
         template <typename T2>
@@ -176,8 +182,7 @@ namespace boost {
 
         // assign one value to all elements
         void assign (const T& value) { fill ( value ); }    // A synonym for fill
-        void fill   (const T& value)
-        {
+        void fill   (const T& value) {
             std::fill_n(begin(),size(),value);
         }
 
@@ -190,7 +195,6 @@ namespace boost {
 
     template< class T >
     class array< T, 0 > {
-
       public:
         // type definitions
         typedef T              value_type;
@@ -202,13 +206,13 @@ namespace boost {
         typedef std::ptrdiff_t difference_type;
 
         // iterator support
-        iterator        begin()       { return       iterator( reinterpret_cast<       T * >( this ) ); }
-        const_iterator  begin() const { return const_iterator( reinterpret_cast< const T * >( this ) ); }
-        const_iterator cbegin() const { return const_iterator( reinterpret_cast< const T * >( this ) ); }
+        iterator        begin()       BOOST_NOEXCEPT { return       iterator( reinterpret_cast<       T * >( this ) ); }
+        const_iterator  begin() const BOOST_NOEXCEPT { return const_iterator( reinterpret_cast< const T * >( this ) ); }
+        const_iterator cbegin() const BOOST_NOEXCEPT { return const_iterator( reinterpret_cast< const T * >( this ) ); }
 
-        iterator        end()       { return  begin(); }
-        const_iterator  end() const { return  begin(); }
-        const_iterator cend() const { return cbegin(); }
+        iterator        end()       BOOST_NOEXCEPT { return  begin(); }
+        const_iterator  end() const BOOST_NOEXCEPT { return  begin(); }
+        const_iterator cend() const BOOST_NOEXCEPT { return cbegin(); }
 
         // reverse iterator support
 #if !defined(BOOST_MSVC_STD_ITERATOR) && !defined(BOOST_NO_STD_ITERATOR_TRAITS)
@@ -225,30 +229,30 @@ namespace boost {
         typedef std::reverse_iterator<const_iterator,T> const_reverse_iterator;
 #endif
 
-        reverse_iterator rbegin() { return reverse_iterator(end()); }
-        const_reverse_iterator rbegin() const {
+        reverse_iterator rbegin() BOOST_NOEXCEPT { return reverse_iterator(end()); }
+        const_reverse_iterator rbegin() const BOOST_NOEXCEPT {
             return const_reverse_iterator(end());
         }
-        const_reverse_iterator crbegin() const {
+        const_reverse_iterator crbegin() const BOOST_NOEXCEPT {
             return const_reverse_iterator(end());
         }
 
-        reverse_iterator rend() { return reverse_iterator(begin()); }
-        const_reverse_iterator rend() const {
+        reverse_iterator rend() BOOST_NOEXCEPT {
+            return reverse_iterator(begin());
+        }
+        const_reverse_iterator rend() const BOOST_NOEXCEPT {
             return const_reverse_iterator(begin());
         }
-        const_reverse_iterator crend() const {
+        const_reverse_iterator crend() const BOOST_NOEXCEPT {
             return const_reverse_iterator(begin());
         }
 
         // operator[]
-        reference operator[](size_type /*i*/)
-        {
+        reference operator[](size_type /*i*/) {
             return failed_rangecheck();
         }
 
-        /*BOOST_CONSTEXPR*/ const_reference operator[](size_type /*i*/) const
-        {
+        /*BOOST_CONSTEXPR*/ const_reference operator[](size_type /*i*/) const {
             return failed_rangecheck();
         }
 
@@ -257,41 +261,37 @@ namespace boost {
         /*BOOST_CONSTEXPR*/ const_reference at(size_type /*i*/) const   { return failed_rangecheck(); }
 
         // front() and back()
-        reference front()
-        {
+        reference front() {
             return failed_rangecheck();
         }
 
-        BOOST_CONSTEXPR const_reference front() const
-        {
+        BOOST_CONSTEXPR const_reference front() const {
             return failed_rangecheck();
         }
 
-        reference back()
-        {
+        reference back() {
             return failed_rangecheck();
         }
 
-        BOOST_CONSTEXPR const_reference back() const
-        {
+        BOOST_CONSTEXPR const_reference back() const {
             return failed_rangecheck();
         }
 
         // size is constant
-        static BOOST_CONSTEXPR size_type size() { return 0; }
-        static BOOST_CONSTEXPR bool empty() { return true; }
-        static BOOST_CONSTEXPR size_type max_size() { return 0; }
+        static BOOST_CONSTEXPR size_type size() BOOST_NOEXCEPT { return 0; }
+        static BOOST_CONSTEXPR bool empty() BOOST_NOEXCEPT { return true; }
+        static BOOST_CONSTEXPR size_type max_size() BOOST_NOEXCEPT { return 0; }
         enum { static_size = 0 };
 
         void swap (array<T,0>& /*y*/) {
         }
 
-        // direct access to data (read-only)
-        const T* data() const { return 0; }
-        T* data() { return 0; }
+        // direct access to data
+        BOOST_CXX14_CONSTEXPR T* data() BOOST_NOEXCEPT { return 0; }
+        BOOST_CONSTEXPR const T* data() const BOOST_NOEXCEPT { return 0; }
 
         // use array as C array (direct read/write access to data)
-        T* c_array() { return 0; }
+        BOOST_CXX14_CONSTEXPR T* c_array() { return 0; }
 
         // assignment with type conversion
         template <typename T2>
@@ -300,8 +300,8 @@ namespace boost {
         }
 
         // assign one value to all elements
-        void assign (const T& value) { fill ( value ); }
-        void fill   (const T& ) {}
+        BOOST_CXX14_CONSTEXPR void assign (const T& value) { fill ( value ); }
+        BOOST_CXX14_CONSTEXPR void fill   (const T& ) {}
         
         // check range (may be private because it is static)
         static reference failed_rangecheck () {
@@ -380,14 +380,14 @@ namespace boost {
 #else
 // Specific for boost::array: simply returns its elems data member.
     template <typename T, std::size_t N>
-    T(&get_c_array(boost::array<T,N>& arg))[N]
+    BOOST_CXX14_CONSTEXPR T(&get_c_array(boost::array<T,N>& arg) BOOST_NOEXCEPT)[N]
     {
         return arg.elems;
     }
     
     // Const version.
     template <typename T, std::size_t N>
-    const T(&get_c_array(const boost::array<T,N>& arg))[N]
+    BOOST_CXX14_CONSTEXPR const T(&get_c_array(const boost::array<T,N>& arg) BOOST_NOEXCEPT)[N]
     {
         return arg.elems;
     }
@@ -420,13 +420,13 @@ namespace boost {
     }
 
    template <size_t Idx, typename T, size_t N>
-   T &get(boost::array<T,N> &arr) BOOST_NOEXCEPT {
+   BOOST_CXX14_CONSTEXPR T &get(boost::array<T,N> &arr) BOOST_NOEXCEPT {
        BOOST_STATIC_ASSERT_MSG ( Idx < N, "boost::get<>(boost::array &) index out of range" );
        return arr[Idx];
        }
     
    template <size_t Idx, typename T, size_t N>
-   const T &get(const boost::array<T,N> &arr) BOOST_NOEXCEPT {
+   BOOST_CXX14_CONSTEXPR const T &get(const boost::array<T,N> &arr) BOOST_NOEXCEPT {
        BOOST_STATIC_ASSERT_MSG ( Idx < N, "boost::get<>(const boost::array &) index out of range" );
        return arr[Idx];
        }
@@ -451,7 +451,7 @@ namespace std {
 #endif
 
 #if BOOST_WORKAROUND(BOOST_MSVC, >= 1400)  
-# pragma warning(pop)  
+# pragma warning(pop)
 #endif 
 
 #endif /*BOOST_ARRAY_HPP*/
