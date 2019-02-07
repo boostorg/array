@@ -27,6 +27,25 @@ namespace {
         const arr &caRef = get_c_array ( test_case );
         typename test_type::const_iterator iter = test_case.begin ();
         BOOST_CHECK ( &*iter == &caRef[0] );
+
+    //  Confirm at() throws the std lib defined exception
+        try {
+            test_case.at( test_case.size());
+            BOOST_CHECK(false);
+            }
+        catch ( const std::out_of_range & ) {}
+
+        try {
+            test_case.at( test_case.size() + 1);
+            BOOST_CHECK(false);
+            }
+        catch ( const std::out_of_range & ) {}
+
+        try {
+            test_case.at( test_case.size() + 100);
+            BOOST_CHECK(false);
+            }
+        catch ( const std::out_of_range & ) {}
     }
 }
 
