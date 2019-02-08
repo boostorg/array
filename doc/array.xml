@@ -81,7 +81,8 @@
 
     <para>Update: <code>std::array</code> is (as of C++11) part of the C++ standard.
     The differences between <code>boost::array</code> and <code>std::array</code> are minimal.
-    If you are using C++11, you should consider using <code>std::array</code> instead of <code>boost::array</code>.
+    If you are using C++11, you should consider using <code>std::array</code> instead of <code>boost::array</code>,
+    unless you're interested in <code>constexpr</code> usage of <code>boost::array</code>. Currently (2015 year) <code>std::array</code> misses <code>constexpr</code>.
     </para>
 
     <para>Class <code><classname>array</classname></code> fulfills most
@@ -117,7 +118,8 @@
             </template-nontype-parameter>
           </template>
 
-          <purpose><para>STL compliant container wrapper for arrays of constant size</para></purpose>
+          <purpose><para>STL compliant container wrapper for arrays of constant size.
+            Provides extended <code>constexpr</code> support on C++14 compatible compilers (marked with <code>cxx14_constexpr</code>).</para></purpose>
           <typedef name="value_type">
             <type>T</type>
           </typedef>
@@ -163,41 +165,38 @@
 
           <method-group name="iterator support">
             <overloaded-method name="begin">
-              <signature>
-                <type>iterator</type>
+              <signature cv="noexcept">
+                <type>cxx14_constexpr iterator</type>
               </signature>
-              <signature cv="const">
-                <type>const_iterator</type>
+              <signature cv="const noexcept">
+                <type>constexpr const_iterator</type>
               </signature>
 
               <returns><simpara>iterator for the first element</simpara></returns>
-              <throws><simpara>will not throw</simpara></throws>
             </overloaded-method>
 
             <overloaded-method name="end">
-              <signature>
-                <type>iterator</type>
+              <signature cv="noexcept">
+                <type>cxx14_constexpr iterator</type>
               </signature>
-              <signature cv="const">
-                <type>const_iterator</type>
+              <signature cv="const noexcept">
+                <type>constexpr const_iterator</type>
               </signature>
 
               <returns><simpara>iterator for position after the last element</simpara></returns>
-              <throws><simpara>will not throw</simpara></throws>
             </overloaded-method>
 
-            <overloaded-method name="cbegin" cv="const">
+            <overloaded-method name="cbegin" cv="const noexcept">
               <signature>
-                <type>const_iterator</type>
+                <type>constexpr const_iterator</type>
               </signature>
 
               <returns><simpara>constant iterator for the first element</simpara></returns>
-              <throws><simpara>will not throw</simpara></throws>
             </overloaded-method>
 
-            <overloaded-method name="cend" cv="const">
+            <overloaded-method name="cend" cv="const noexcept">
               <signature>
-                <type>const_iterator</type>
+                <type>constexpr const_iterator</type>
               </signature>
 
               <returns><simpara>constant iterator for position after the last element</simpara></returns>
@@ -207,10 +206,10 @@
 
           <method-group name="reverse iterator support">
             <overloaded-method name="rbegin">
-              <signature>
+              <signature cv="noexcept">
                 <type>reverse_iterator</type>
               </signature>
-              <signature cv="const">
+              <signature cv="const noexcept">
                 <type>const_reverse_iterator</type>
               </signature>
 
@@ -218,17 +217,17 @@
             </overloaded-method>
 
             <overloaded-method name="rend">
-              <signature>
+              <signature cv="noexcept">
                 <type>reverse_iterator</type>
               </signature>
-              <signature cv="const">
+              <signature cv="const noexcept">
                 <type>const_reverse_iterator</type>
               </signature>
 
               <returns><simpara>reverse iterator for position after the last element in reverse iteration</simpara></returns>
             </overloaded-method>
   
-            <overloaded-method name="crbegin" cv="const">
+            <overloaded-method name="crbegin" cv="const noexcept">
               <signature>
                 <type>const_reverse_iterator</type>
               </signature>
@@ -237,23 +236,23 @@
               <throws><simpara>will not throw</simpara></throws>
             </overloaded-method>
 
-            <overloaded-method name="crend" cv="const">
+            <overloaded-method name="crend" cv="const noexcept">
               <signature>
                 <type>const_reverse_iterator</type>
               </signature>
 
               <returns><simpara>constant reverse iterator for position after the last element in reverse iteration</simpara></returns>
-              <throws><simpara>will not throw</simpara></throws>
             </overloaded-method>
           </method-group>
 
           <method-group name="capacity">
             <method name="size">
-              <type>size_type</type>
+              <type>constexpr size_type</type>
               <returns><simpara><code>N</code></simpara></returns>
+              <throws><simpara>will not throw</simpara></throws>
             </method>
             <method name="empty">
-              <type>bool</type>
+              <type>constexpr bool</type>
               <returns><simpara><code>N==0</code></simpara></returns>
               <throws><simpara>will not throw</simpara></throws>
             </method>
@@ -267,14 +266,14 @@
           <method-group name="element access">
             <overloaded-method name="operator[]">
               <signature>
-                <type>reference</type>
+                <type>cxx14_constexpr reference</type>
                 <parameter name="i">
                   <paramtype>size_type</paramtype>
                 </parameter>
               </signature>
 
               <signature cv="const">
-                <type>const_reference</type>
+                <type>cxx14_constexpr const_reference</type>
                 <parameter name="i">
                   <paramtype>size_type</paramtype>
                 </parameter>
@@ -287,14 +286,14 @@
 
             <overloaded-method name="at">
               <signature>
-                <type>reference</type>
+                <type>cxx14_constexpr reference</type>
                 <parameter name="i">
                   <paramtype>size_type</paramtype>
                 </parameter>
               </signature>
 
               <signature cv="const">
-                <type>const_reference</type>
+                <type>cxx14_constexpr const_reference</type>
                 <parameter name="i">
                   <paramtype>size_type</paramtype>
                 </parameter>
@@ -305,23 +304,22 @@
             </overloaded-method>
 
             <overloaded-method name="front">
-              <signature>
-                <type>reference</type>
+              <signature cv="noexcept">
+                <type>cxx14_constexpr reference</type>
               </signature>
-              <signature cv="const">
-                <type>const_reference</type>
+              <signature cv="const noexcept">
+                <type>constexpr const_reference</type>
               </signature>
               <requires><simpara><code>N &gt; 0</code></simpara></requires>
               <returns><simpara>the first element</simpara></returns>
-              <throws><simpara>will not throw</simpara></throws>
             </overloaded-method>
 
             <overloaded-method name="back">
-              <signature>
-                <type>reference</type>
+              <signature cv="noexcept">
+                <type>cxx14_constexpr reference</type>
               </signature>
-              <signature cv="const">
-                <type>const_reference</type>
+              <signature cv="const noexcept">
+                <type>constexpr const_reference</type>
               </signature>
               <requires><simpara><code>N &gt; 0</code></simpara></requires>
               <returns><simpara>the last element</simpara></returns>
@@ -329,13 +327,13 @@
             </overloaded-method>
 
             <method name="data" cv="const">
-              <type>const T*</type>
+              <type>constexpr const T*</type>
               <returns><simpara><code>elems</code></simpara></returns>
               <throws><simpara>will not throw</simpara></throws>
             </method>
 
            <method name="c_array">
-              <type>T*</type>
+              <type>constexpr T*</type>
               <returns><simpara><code>elems</code></simpara></returns>
               <throws><simpara>will not throw</simpara></throws>
             </method>
@@ -523,7 +521,7 @@
                 </template-nontype-parameter>
               </template>
 
-              <type>T</type>
+              <type>cxx14_constexpr T</type>
               
               <parameter name="arr">
                 <paramtype><classname>array</classname>&lt;T, N&gt;&amp;</paramtype>
@@ -543,7 +541,7 @@
                 </template-nontype-parameter>
               </template>
 
-              <type>T</type>
+              <type>cxx14_constexpr T</type>
               
               <parameter name="arr">
                 <paramtype>const <classname>array</classname>&lt;T, N&gt;&amp;</paramtype>
