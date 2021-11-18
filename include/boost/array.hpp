@@ -78,9 +78,7 @@ namespace boost {
         @tparam T The array value type
         @tparam N The array size
 
-        @see
-
-        See Also @ref std::vector
+        @see @ref std::vector
 
     */
     template<class T, std::size_t N>
@@ -439,9 +437,7 @@ namespace boost {
         
             @param i Position of the element to return
             
-            @see 
-
-            See Also @ref at
+            @see @ref at
         
         */
         reference operator[](size_type i)
@@ -1311,9 +1307,7 @@ namespace boost {
         @param It First element in the range
         @param It Second element in the range
 
-        @see
-
-        See Also @ref hash_value
+        @see @ref hash_value
 
     */
     template <class It> std::size_t hash_range(It, It);
@@ -1335,9 +1329,7 @@ namespace boost {
 
         @param arr Array for which we calculate the hash
 
-        @see
-
-        See Also @ref hash_range
+        @see @ref hash_range
 
     */
     template<class T, std::size_t N>
@@ -1371,9 +1363,7 @@ namespace boost {
    
        @param arr array whose contents to extract
        
-       @see 
-
-       See Also @ref at, @ref operator[]
+       @see @ref at, @ref operator[]
    
    */
    template <size_t Idx, typename T, size_t N>
@@ -1408,9 +1398,7 @@ namespace boost {
 
        @param arr array whose contents to extract
 
-       @see
-
-       See Also @ref at, @ref operator[]
+       @see @ref at, @ref operator[]
 
    */
    template <size_t Idx, typename T, size_t N>
