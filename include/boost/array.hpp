@@ -44,7 +44,7 @@
 #include <iterator>
 #include <stdexcept>
 #include <boost/assert.hpp>
-#include <boost/core/swap.hpp>
+#include <boost/core/invoke_swap.hpp>
 #include <boost/static_assert.hpp>
 
 #include <boost/throw_exception.hpp>
@@ -156,7 +156,7 @@ namespace boost {
         // swap (note: linear complexity)
         void swap (array<T,N>& y) {
             for (size_type i = 0; i < N; ++i)
-                boost::swap(elems[i],y.elems[i]);
+                boost::core::invoke_swap(elems[i],y.elems[i]);
         }
 
         // direct access to data (read-only)
