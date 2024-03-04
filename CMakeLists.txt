@@ -21,6 +21,9 @@ target_link_libraries(boost_array
     Boost::throw_exception
 )
 
+include(GNUInstallDirs)
+install(DIRECTORY "include/" DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
+
 if(BUILD_TESTING AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/test/CMakeLists.txt")
 
   add_subdirectory(test)
