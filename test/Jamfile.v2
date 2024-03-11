@@ -15,6 +15,6 @@ run array7.cpp ;
 # run array_constexpr.cpp ;
 compile-fail array_getfail1.cpp ;
 compile-fail array_getfail2.cpp ;
-run array_hash.cpp ;
+run array_hash.cpp /boost/container_hash//boost_container_hash ;
 
 run quick.cpp ;
