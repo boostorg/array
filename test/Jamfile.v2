@@ -4,6 +4,8 @@
 
 import testing ;
 
+project : requirements <library>/boost/array//boost_array ;
+
 run array0.cpp ;
 run array1.cpp ;
 run array2.cpp ;
