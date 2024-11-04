@@ -72,13 +72,13 @@ namespace boost {
         typedef std::ptrdiff_t difference_type;
 
         // iterator support
-        iterator        begin()       { return elems; }
-        const_iterator  begin() const { return elems; }
-        const_iterator cbegin() const { return elems; }
+        iterator        begin()       BOOST_NOEXCEPT { return elems; }
+        const_iterator  begin() const BOOST_NOEXCEPT { return elems; }
+        const_iterator cbegin() const BOOST_NOEXCEPT { return elems; }
 
-        iterator        end()       { return elems+N; }
-        const_iterator  end() const { return elems+N; }
-        const_iterator cend() const { return elems+N; }
+        iterator        end()       BOOST_NOEXCEPT { return elems+N; }
+        const_iterator  end() const BOOST_NOEXCEPT { return elems+N; }
+        const_iterator cend() const BOOST_NOEXCEPT { return elems+N; }
 
         // reverse iterator support
 #if !defined(BOOST_MSVC_STD_ITERATOR) && !defined(BOOST_NO_STD_ITERATOR_TRAITS)
@@ -95,19 +95,19 @@ namespace boost {
         typedef std::reverse_iterator<const_iterator,T> const_reverse_iterator;
 #endif
 
-        reverse_iterator rbegin() { return reverse_iterator(end()); }
-        const_reverse_iterator rbegin() const {
+        reverse_iterator rbegin() BOOST_NOEXCEPT { return reverse_iterator(end()); }
+        const_reverse_iterator rbegin() const BOOST_NOEXCEPT {
             return const_reverse_iterator(end());
         }
-        const_reverse_iterator crbegin() const {
+        const_reverse_iterator crbegin() const BOOST_NOEXCEPT {
             return const_reverse_iterator(end());
         }
 
-        reverse_iterator rend() { return reverse_iterator(begin()); }
-        const_reverse_iterator rend() const {
+        reverse_iterator rend() BOOST_NOEXCEPT { return reverse_iterator(begin()); }
+        const_reverse_iterator rend() const BOOST_NOEXCEPT {
             return const_reverse_iterator(begin());
         }
-        const_reverse_iterator crend() const {
+        const_reverse_iterator crend() const BOOST_NOEXCEPT {
             return const_reverse_iterator(begin());
         }
 
@@ -148,9 +148,9 @@ namespace boost {
         }
 
         // size is constant
-        static BOOST_CONSTEXPR size_type size() { return N; }
-        static BOOST_CONSTEXPR bool empty() { return false; }
-        static BOOST_CONSTEXPR size_type max_size() { return N; }
+        static BOOST_CONSTEXPR size_type size() BOOST_NOEXCEPT { return N; }
+        static BOOST_CONSTEXPR bool empty() BOOST_NOEXCEPT { return false; }
+        static BOOST_CONSTEXPR size_type max_size() BOOST_NOEXCEPT { return N; }
         enum { static_size = N };
 
         // swap (note: linear complexity)
@@ -160,11 +160,11 @@ namespace boost {
         }
 
         // direct access to data (read-only)
-        const T* data() const { return elems; }
-        T* data() { return elems; }
+        const T* data() const BOOST_NOEXCEPT { return elems; }
+        T* data() BOOST_NOEXCEPT { return elems; }
 
         // use array as C array (direct read/write access to data)
-        T* c_array() { return elems; }
+        T* c_array() BOOST_NOEXCEPT { return elems; }
 
         // assignment with type conversion
         template <typename T2>
@@ -201,13 +201,13 @@ namespace boost {
         typedef std::ptrdiff_t difference_type;
 
         // iterator support
-        iterator        begin()       { return       iterator( reinterpret_cast<       T * >( this ) ); }
-        const_iterator  begin() const { return const_iterator( reinterpret_cast< const T * >( this ) ); }
-        const_iterator cbegin() const { return const_iterator( reinterpret_cast< const T * >( this ) ); }
+        iterator        begin()       BOOST_NOEXCEPT { return       iterator( reinterpret_cast<       T * >( this ) ); }
+        const_iterator  begin() const BOOST_NOEXCEPT { return const_iterator( reinterpret_cast< const T * >( this ) ); }
+        const_iterator cbegin() const BOOST_NOEXCEPT { return const_iterator( reinterpret_cast< const T * >( this ) ); }
 
-        iterator        end()       { return  begin(); }
-        const_iterator  end() const { return  begin(); }
-        const_iterator cend() const { return cbegin(); }
+        iterator        end()       BOOST_NOEXCEPT { return  begin(); }
+        const_iterator  end() const BOOST_NOEXCEPT { return  begin(); }
+        const_iterator cend() const BOOST_NOEXCEPT { return cbegin(); }
 
         // reverse iterator support
 #if !defined(BOOST_MSVC_STD_ITERATOR) && !defined(BOOST_NO_STD_ITERATOR_TRAITS)
@@ -224,19 +224,19 @@ namespace boost {
         typedef std::reverse_iterator<const_iterator,T> const_reverse_iterator;
 #endif
 
-        reverse_iterator rbegin() { return reverse_iterator(end()); }
-        const_reverse_iterator rbegin() const {
+        reverse_iterator rbegin() BOOST_NOEXCEPT { return reverse_iterator(end()); }
+        const_reverse_iterator rbegin() const BOOST_NOEXCEPT {
             return const_reverse_iterator(end());
         }
-        const_reverse_iterator crbegin() const {
+        const_reverse_iterator crbegin() const BOOST_NOEXCEPT {
             return const_reverse_iterator(end());
         }
 
-        reverse_iterator rend() { return reverse_iterator(begin()); }
-        const_reverse_iterator rend() const {
+        reverse_iterator rend() BOOST_NOEXCEPT { return reverse_iterator(begin()); }
+        const_reverse_iterator rend() const BOOST_NOEXCEPT {
             return const_reverse_iterator(begin());
         }
-        const_reverse_iterator crend() const {
+        const_reverse_iterator crend() const BOOST_NOEXCEPT {
             return const_reverse_iterator(begin());
         }
 
@@ -277,20 +277,20 @@ namespace boost {
         }
 
         // size is constant
-        static BOOST_CONSTEXPR size_type size() { return 0; }
-        static BOOST_CONSTEXPR bool empty() { return true; }
-        static BOOST_CONSTEXPR size_type max_size() { return 0; }
+        static BOOST_CONSTEXPR size_type size() BOOST_NOEXCEPT { return 0; }
+        static BOOST_CONSTEXPR bool empty() BOOST_NOEXCEPT { return true; }
+        static BOOST_CONSTEXPR size_type max_size() BOOST_NOEXCEPT { return 0; }
         enum { static_size = 0 };
 
         void swap (array<T,0>& /*y*/) {
         }
 
         // direct access to data (read-only)
-        const T* data() const { return 0; }
-        T* data() { return 0; }
+        const T* data() const BOOST_NOEXCEPT { return 0; }
+        T* data() BOOST_NOEXCEPT { return 0; }
 
         // use array as C array (direct read/write access to data)
-        T* c_array() { return 0; }
+        T* c_array() BOOST_NOEXCEPT { return 0; }
 
         // assignment with type conversion
         template <typename T2>
