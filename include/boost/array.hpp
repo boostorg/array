@@ -31,7 +31,8 @@
 #ifndef BOOST_ARRAY_HPP
 #define BOOST_ARRAY_HPP
 
-#include <boost/detail/workaround.hpp>
+#include <boost/config.hpp>
+#include <boost/config/workaround.hpp>
 
 #if BOOST_WORKAROUND(BOOST_MSVC, >= 1400)
 # pragma warning(push)
@@ -49,9 +50,6 @@
 
 #include <boost/throw_exception.hpp>
 #include <algorithm>
-
-// FIXES for broken compilers
-#include <boost/config.hpp>
 
 
 namespace boost {
@@ -119,7 +117,15 @@ namespace boost {
 
         BOOST_CONSTEXPR const_reference operator[](size_type i) const
         {
+#if BOOST_WORKAROUND(BOOST_GCC, < 50000)
+
+            return elems[i];
+
+#else
+
             return BOOST_ASSERT_MSG( i < N, "out of range" ), elems[i];
+
+#endif
         }
 
         // at() with range check
