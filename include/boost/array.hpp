@@ -72,13 +72,13 @@ namespace boost {
         typedef std::ptrdiff_t difference_type;
 
         // iterator support
-        iterator        begin()       BOOST_NOEXCEPT { return elems; }
-        const_iterator  begin() const BOOST_NOEXCEPT { return elems; }
-        const_iterator cbegin() const BOOST_NOEXCEPT { return elems; }
+        BOOST_CXX14_CONSTEXPR iterator  begin()       BOOST_NOEXCEPT { return elems; }
+        BOOST_CONSTEXPR const_iterator  begin() const BOOST_NOEXCEPT { return elems; }
+        BOOST_CONSTEXPR const_iterator cbegin() const BOOST_NOEXCEPT { return elems; }
 
-        iterator        end()       BOOST_NOEXCEPT { return elems+N; }
-        const_iterator  end() const BOOST_NOEXCEPT { return elems+N; }
-        const_iterator cend() const BOOST_NOEXCEPT { return elems+N; }
+        BOOST_CXX14_CONSTEXPR iterator  end()       BOOST_NOEXCEPT { return elems+N; }
+        BOOST_CONSTEXPR const_iterator  end() const BOOST_NOEXCEPT { return elems+N; }
+        BOOST_CONSTEXPR const_iterator cend() const BOOST_NOEXCEPT { return elems+N; }
 
         // reverse iterator support
 #if !defined(BOOST_MSVC_STD_ITERATOR) && !defined(BOOST_NO_STD_ITERATOR_TRAITS)
@@ -112,7 +112,7 @@ namespace boost {
         }
 
         // operator[]
-        reference operator[](size_type i)
+        BOOST_CXX14_CONSTEXPR reference operator[](size_type i)
         {
             return BOOST_ASSERT_MSG( i < N, "out of range" ), elems[i];
         }
@@ -123,11 +123,11 @@ namespace boost {
         }
 
         // at() with range check
-        reference                           at(size_type i)       { return rangecheck(i), elems[i]; }
+        BOOST_CXX14_CONSTEXPR reference at(size_type i)       { return rangecheck(i), elems[i]; }
         BOOST_CONSTEXPR const_reference at(size_type i) const { return rangecheck(i), elems[i]; }
 
         // front() and back()
-        reference front()
+        BOOST_CXX14_CONSTEXPR reference front()
         {
             return elems[0];
         }
@@ -137,7 +137,7 @@ namespace boost {
             return elems[0];
         }
 
-        reference back()
+        BOOST_CXX14_CONSTEXPR reference back()
         {
             return elems[N-1];
         }
@@ -154,14 +154,14 @@ namespace boost {
         enum { static_size = N };
 
         // swap (note: linear complexity)
-        void swap (array<T,N>& y) {
+        BOOST_CXX14_CONSTEXPR void swap (array<T,N>& y) {
             for (size_type i = 0; i < N; ++i)
                 boost::core::invoke_swap(elems[i],y.elems[i]);
         }
 
         // direct access to data (read-only)
-        const T* data() const BOOST_NOEXCEPT { return elems; }
-        T* data() BOOST_NOEXCEPT { return elems; }
+        BOOST_CONSTEXPR const T* data() const BOOST_NOEXCEPT { return elems; }
+        BOOST_CXX14_CONSTEXPR T* data() BOOST_NOEXCEPT { return elems; }
 
         // use array as C array (direct read/write access to data)
         T* c_array() BOOST_NOEXCEPT { return elems; }
@@ -175,7 +175,7 @@ namespace boost {
 
         // assign one value to all elements
         void assign (const T& value) { fill ( value ); }    // A synonym for fill
-        void fill   (const T& value)
+        BOOST_CXX14_CONSTEXPR void fill (const T& value)
         {
             std::fill_n(begin(),size(),value);
         }
@@ -286,8 +286,8 @@ namespace boost {
         }
 
         // direct access to data (read-only)
-        const T* data() const BOOST_NOEXCEPT { return 0; }
-        T* data() BOOST_NOEXCEPT { return 0; }
+        BOOST_CONSTEXPR const T* data() const BOOST_NOEXCEPT { return 0; }
+        BOOST_CXX14_CONSTEXPR T* data() BOOST_NOEXCEPT { return 0; }
 
         // use array as C array (direct read/write access to data)
         T* c_array() BOOST_NOEXCEPT { return 0; }
@@ -300,7 +300,7 @@ namespace boost {
 
         // assign one value to all elements
         void assign (const T& value) { fill ( value ); }
-        void fill   (const T& ) {}
+        BOOST_CXX14_CONSTEXPR void fill (const T& ) {}
 
         // check range (may be private because it is static)
         static reference failed_rangecheck () {
@@ -320,27 +320,27 @@ namespace boost {
 
     // comparisons
     template<class T, std::size_t N>
-    bool operator== (const array<T,N>& x, const array<T,N>& y) {
+    BOOST_CXX14_CONSTEXPR bool operator== (const array<T,N>& x, const array<T,N>& y) {
         return std::equal(x.begin(), x.end(), y.begin());
     }
     template<class T, std::size_t N>
-    bool operator< (const array<T,N>& x, const array<T,N>& y) {
+    BOOST_CXX14_CONSTEXPR bool operator< (const array<T,N>& x, const array<T,N>& y) {
         return std::lexicographical_compare(x.begin(),x.end(),y.begin(),y.end());
     }
     template<class T, std::size_t N>
-    bool operator!= (const array<T,N>& x, const array<T,N>& y) {
+    BOOST_CXX14_CONSTEXPR bool operator!= (const array<T,N>& x, const array<T,N>& y) {
         return !(x==y);
     }
     template<class T, std::size_t N>
-    bool operator> (const array<T,N>& x, const array<T,N>& y) {
+    BOOST_CXX14_CONSTEXPR bool operator> (const array<T,N>& x, const array<T,N>& y) {
         return y<x;
     }
     template<class T, std::size_t N>
-    bool operator<= (const array<T,N>& x, const array<T,N>& y) {
+    BOOST_CXX14_CONSTEXPR bool operator<= (const array<T,N>& x, const array<T,N>& y) {
         return !(y<x);
     }
     template<class T, std::size_t N>
-    bool operator>= (const array<T,N>& x, const array<T,N>& y) {
+    BOOST_CXX14_CONSTEXPR bool operator>= (const array<T,N>& x, const array<T,N>& y) {
         return !(x<y);
     }
 
