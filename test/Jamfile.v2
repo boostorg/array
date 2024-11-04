@@ -18,7 +18,7 @@ run array5.cpp ;
 run array6.cpp ;
 run array7.cpp ;
 
-# run array_constexpr.cpp ;
+compile array_constexpr.cpp ;
 
 compile-fail array_getfail1.cpp ;
 compile-fail array_getfail2.cpp ;
