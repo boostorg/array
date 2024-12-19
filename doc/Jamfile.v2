@@ -1,19 +1,16 @@
 #~ Copyright Marshall Clow 2013
+#~ Copyright Christian Mazakas 2024
 #~ Distributed under the Boost Software License, Version 1.0.
 #~ (See accompanying file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
-using boostbook ;
+import asciidoctor ;
 
-boostbook standalone
-	: array.xml 
-	: <xsl:param>boost.root=../../../.. ;
+html array.html : array.adoc ;
 
-###############################################################################
-alias boostdoc
-    : array.xml
-    :
-    :
-    : ;
-explicit boostdoc ;
-alias boostrelease ;
-explicit boostrelease ;
+install html_ : array.html : <location>html ;
+
+pdf array.pdf : array.adoc ;
+explicit array.pdf ;
+
+install pdf_ : array.pdf : <location>pdf ;
+explicit pdf_ ;

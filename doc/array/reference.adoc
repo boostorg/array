@@ -1,0 +1,418 @@
+////
+Copyright 2001-2004 Nicolai M. Josuttis
+Copyright 2012 Marshall Clow
+Copyright 2024 Christian Mazakas
+Distributed under the Boost Software License, Version 1.0.
+https://www.boost.org/LICENSE_1_0.txt
+////
+
+[#reference]
+# Reference
+:idprefix: reference_
+:cpp: C++
+
+## Header <boost/array.hpp>
+
+```cpp
+namespace boost {
+  template<typename T, std::size_t N> class array;
+  template<typename T, std::size_t N> void swap(array<T, N>&, array<T, N>&);
+  template<typename T, std::size_t N>
+    bool operator==(const array<T, N>&, const array<T, N>&);
+  template<typename T, std::size_t N>
+    bool operator!=(const array<T, N>&, const array<T, N>&);
+  template<typename T, std::size_t N>
+    bool operator<(const array<T, N>&, const array<T, N>&);
+  template<typename T, std::size_t N>
+    bool operator>(const array<T, N>&, const array<T, N>&);
+  template<typename T, std::size_t N>
+    bool operator<=(const array<T, N>&, const array<T, N>&);
+  template<typename T, std::size_t N>
+    bool operator>=(const array<T, N>&, const array<T, N>&);
+  template<typename T, std::size_t N, std::size_t Idx>
+    T boost::get(array<T, N>&);
+  template<typename T, std::size_t N, std::size_t Idx>
+    T boost::get(const array<T, N>&);
+}
+```
+
+## Class template array
+
+### Synopsis
+
+```cpp
+// In header: <boost/array.hpp>
+
+template<typename T, std::size_t N>
+class array {
+public:
+  // types
+  typedef T                                     value_type;
+  typedef T*                                    iterator;
+  typedef const T*                              const_iterator;
+  typedef std::reverse_iterator<iterator>       reverse_iterator;
+  typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
+  typedef T&                                    reference;
+  typedef const T&                              const_reference;
+  typedef std::size_t                           size_type;
+  typedef std::ptrdiff_t                        difference_type;
+
+  // static constants
+  static const size_type static_size = N;
+
+  // construct/copy/destruct
+  template<typename U> array& operator=(const array<U, N>&);
+
+  // iterator support
+  iterator begin();
+  const_iterator begin() const;
+  iterator end();
+  const_iterator end() const;
+  const_iterator cbegin();
+  const_iterator cend();
+
+  // reverse iterator support
+  reverse_iterator rbegin();
+  const_reverse_iterator rbegin() const;
+  reverse_iterator rend();
+  const_reverse_iterator rend() const;
+  const_reverse_iterator crbegin();
+  const_reverse_iterator crend();
+
+  // capacity
+  size_type size();
+  bool empty();
+  size_type max_size();
+
+  // element access
+  reference operator[](size_type);
+  const_reference operator[](size_type) const;
+  reference at(size_type);
+  const_reference at(size_type) const;
+  reference front();
+  const_reference front() const;
+  reference back();
+  const_reference back() const;
+  const T* data() const;
+  T* c_array();
+
+  // modifiers
+  void swap(array<T, N>&);
+  void assign(const T&);
+
+  // public data members
+  T elems[N];
+};
+
+// specialized algorithms
+template<typename T, std::size_t N> void swap(array<T, N>&, array<T, N>&);
+
+// comparisons
+template<typename T, std::size_t N>
+  bool operator==(const array<T, N>&, const array<T, N>&);
+template<typename T, std::size_t N>
+  bool operator!=(const array<T, N>&, const array<T, N>&);
+template<typename T, std::size_t N>
+  bool operator<(const array<T, N>&, const array<T, N>&);
+template<typename T, std::size_t N>
+  bool operator>(const array<T, N>&, const array<T, N>&);
+template<typename T, std::size_t N>
+  bool operator<=(const array<T, N>&, const array<T, N>&);
+template<typename T, std::size_t N>
+  bool operator>=(const array<T, N>&, const array<T, N>&);
+
+// specializations
+template<typename T, std::size_t N, std::size_t Idx>
+  T boost::get(array<T, N>&);
+template<typename T, std::size_t N, std::size_t Idx>
+  T boost::get(const array<T, N>&);
+```
+
+### Description
+
+#### array public construct/copy/destruct
+
+```
+template<typename U> array& operator=(const array<U, N>& other);
+```
+[horizontal]
+Effects: :: `std::copy(rhs.begin(), rhs.end(), begin())`
+
+---
+
+#### array iterator support
+
+```
+iterator begin();
+const_iterator begin() const;
+```
+[horizontal]
+Returns: :: iterator for the first element
+Throws: :: will not throw
+
+---
+
+```
+iterator end();
+const_iterator end() const;
+```
+[horizontal]
+Returns: :: iterator for position after the last element
+Throws: :: will not throw
+
+---
+
+```
+const_iterator cbegin();
+```
+[horizontal]
+Returns: :: constant iterator for the first element
+Throws: :: will not throw
+
+---
+
+```
+const_iterator cend();
+```
+[horizontal]
+Returns: :: constant iterator for position after the last element
+Throws: :: will not throw
+
+---
+
+#### array reverse iterator support
+
+```
+reverse_iterator rbegin();
+const_reverse_iterator rbegin() const;
+```
+[horizontal]
+Returns: :: reverse iterator for the first element of reverse iteration
+
+---
+
+```
+reverse_iterator rend();
+const_reverse_iterator rend() const;
+```
+[horizontal]
+Returns: :: reverse iterator for position after the last element in reverse iteration
+
+---
+
+```
+const_reverse_iterator crbegin();
+```
+[horizontal]
+Returns: :: constant reverse iterator for the first element of reverse iteration
+Throws: :: will not throw
+
+---
+
+```
+const_reverse_iterator crend();
+```
+[horizontal]
+Returns: ::  constant reverse iterator for position after the last element in reverse iteration
+Throws: ::  will not throw
+
+---
+
+#### array capacity
+
+```
+size_type size();
+```
+[horizontal]
+Returns: :: `N`
+
+---
+
+```
+bool empty();
+```
+[horizontal]
+Returns: :: `N==0`
+Throws: :: will not throw
+
+---
+
+```
+size_type max_size();
+```
+[horizontal]
+Returns: :: `N`
+Throws: ::  will not throw
+
+---
+
+#### array element access
+
+```
+reference operator[](size_type i);
+const_reference operator[](size_type i) const;
+```
+[horizontal]
+Requires: :: `i < N`
+Returns: ::  element with index `i`
+Throws: :: will not throw.
+
+---
+
+```
+reference at(size_type i);
+const_reference at(size_type i) const;
+```
+[horizontal]
+Returns: :: element with index `i`
+Throws: :: `std::range_error` if `i >= N`
+
+---
+
+```
+reference front();
+const_reference front() const;
+```
+[horizontal]
+Requires: ::  `N > 0`
+Returns: :: the first element
+Throws: :: will not throw
+
+---
+
+```
+reference back();
+const_reference back() const;
+```
+[horizontal]
+Requires: :: `N > 0`
+Returns: :: the last element
+Throws: :: will not throw
+
+---
+
+```
+const T* data() const;
+```
+[horizontal]
+Returns: :: `elems`
+Throws: :: will not throw
+
+---
+
+```
+T* c_array();
+```
+[horizontal]
+Returns: :: `elems`
+Throws: :: will not throw
+
+---
+
+#### array modifiers
+
+```
+void swap(array<T, N>& other);
+```
+[horizontal]
+Effects: :: `std::swap_ranges(begin(), end(), other.begin())`
+Complexity: :: linear in `N`
+
+---
+
+```
+void assign(const T& value);
+```
+[horizontal]
+Effects: :: `std::fill_n(begin(), N, value)`
+
+---
+
+#### array specialized algorithms
+
+```
+template<typename T, std::size_t N> void swap(array<T, N>& x, array<T, N>& y);
+```
+[horizontal]
+Effects: :: `x.swap(y)`
+Throws: :: will not throw.
+
+---
+
+#### array comparisons
+
+```
+template<typename T, std::size_t N>
+  bool operator==(const array<T, N>& x, const array<T, N>& y);
+```
+[horizontal]
+Returns: :: `std::equal(x.begin(), x.end(), y.begin())`
+
+---
+
+```
+template<typename T, std::size_t N>
+  bool operator!=(const array<T, N>& x, const array<T, N>& y);
+```
+[horizontal]
+Returns: :: `!(x == y)`
+
+---
+
+```
+template<typename T, std::size_t N>
+  bool operator<(const array<T, N>& x, const array<T, N>& y);
+```
+[horizontal]
+Returns: :: `std::lexicographical_compare(x.begin(), x.end(), y.begin(), y.end())`
+
+---
+
+```
+template<typename T, std::size_t N>
+  bool operator>(const array<T, N>& x, const array<T, N>& y);
+```
+[horizontal]
+Returns: :: `y < x`
+
+---
+
+```
+template<typename T, std::size_t N>
+  bool operator<=(const array<T, N>& x, const array<T, N>& y);
+```
+[horizontal]
+Returns: :: `!(y < x)`
+
+---
+
+```
+template<typename T, std::size_t N>
+  bool operator>=(const array<T, N>& x, const array<T, N>& y);
+```
+[horizontal]
+Returns: :: `!(x < y)`
+
+---
+
+#### array specializations
+
+```
+template<typename T, std::size_t N, std::size_t Idx>
+  T boost::get(array<T, N>& arr);
+```
+[horizontal]
+Returns: :: element of array with index `Idx`
+Effects: :: Will `static_assert` if `Idx >= N`
+
+---
+
+```
+template<typename T, std::size_t N, std::size_t Idx>
+  T boost::get(const array<T, N>& arr);
+```
+[horizontal]
+Returns: :: const element of array with index `Idx`
+Effects: :: Will `static_assert` if `Idx >= N`
+
+---
