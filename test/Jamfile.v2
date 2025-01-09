@@ -7,6 +7,8 @@ import testing ;
 import-search /boost/config/checks ;
 import config : requires ;
 
+#
+
 run array0.cpp ;
 run array1.cpp ;
 run array2.cpp ;
@@ -23,5 +25,11 @@ compile-fail array_getfail2.cpp ;
 
 run array_hash.cpp
   : : : [ requires cxx11_noexcept ] ;
+
+#
+
+run array_typedef_test.cpp ;
+
+#
 
 run quick.cpp ;
