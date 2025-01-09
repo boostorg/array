@@ -14,3 +14,9 @@ explicit array.pdf ;
 
 install pdf_ : array.pdf : <location>pdf ;
 explicit pdf_ ;
+
+###############################################################################
+alias boostdoc ;
+explicit boostdoc ;
+alias boostrelease : html_ ;
+explicit boostrelease ;
