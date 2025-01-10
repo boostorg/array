@@ -31,6 +31,7 @@ run array_hash.cpp
 run array_typedef_test.cpp ;
 run array_elems_test.cpp ;
 run array_init_test.cpp ;
+run array_copy_test.cpp ;
 
 #
 
