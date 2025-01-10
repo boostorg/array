@@ -34,6 +34,7 @@ run array_init_test.cpp ;
 run array_copy_test.cpp ;
 run array_convert_test.cpp ;
 run array_data_test.cpp ;
+run array_iterator_test.cpp ;
 
 #
 
