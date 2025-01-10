@@ -16,7 +16,7 @@ template<class T, std::size_t N> void test1()
 
 template<class T, std::size_t N> void test2()
 {
-    boost::array<T, N> a1 = {{}};
+    boost::array<T, N> a1 = {};
 
     boost::array<T, N> a2;
     a2 = a1;
@@ -52,7 +52,7 @@ int main()
     test1<int const, 1>();
     test1<int const, 7>();
 
-    // test2<int, 0>();
+    test2<int, 0>();
     test2<int, 1>();
     test2<int, 7>();
 
