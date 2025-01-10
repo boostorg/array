@@ -4,10 +4,11 @@
 
 #include <boost/array.hpp>
 #include <boost/core/lightweight_test.hpp>
+#include <cstddef>
 
 template<class T, std::size_t N> void test()
 {
-    boost::array<T, N> a = {};
+    boost::array<T, N> a = {{}};
 
     T (&e)[ N ] = a.elems;
 
