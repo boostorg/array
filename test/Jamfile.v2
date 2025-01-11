@@ -41,6 +41,7 @@ run array_access_test.cpp ;
 run array_c_array_test.cpp ;
 run array_fill_test.cpp ;
 run array_assign_test.cpp ;
+run array_swap_test.cpp ;
 
 #
 
