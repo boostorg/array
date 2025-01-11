@@ -39,6 +39,7 @@ run array_reverse_test.cpp ;
 run array_size_test.cpp ;
 run array_access_test.cpp ;
 run array_c_array_test.cpp ;
+run array_fill_test.cpp ;
 
 #
 
