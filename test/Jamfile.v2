@@ -43,6 +43,7 @@ run array_fill_test.cpp ;
 run array_assign_test.cpp ;
 run array_swap_test.cpp ;
 run array_swap_test2.cpp ;
+run array_eq_test.cpp ;
 
 #
 
