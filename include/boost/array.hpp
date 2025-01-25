@@ -1,3 +1,6 @@
+#ifndef BOOST_ARRAY_HPP_INCLUDED
+#define BOOST_ARRAY_HPP_INCLUDED
+
 /* The following code declares class array,
  * an STL container (as wrapper) for arrays of constant size.
  *
@@ -28,8 +31,6 @@
  *
  * Jan 29, 2004
  */
-#ifndef BOOST_ARRAY_HPP
-#define BOOST_ARRAY_HPP
 
 #include <boost/config.hpp>
 #include <boost/config/workaround.hpp>
@@ -41,16 +42,14 @@
 # pragma warning(disable:4610) // warning C4610: class 'boost::array<T,N>' can never be instantiated - user defined constructor required
 #endif
 
-#include <cstddef>
-#include <iterator>
-#include <stdexcept>
 #include <boost/assert.hpp>
 #include <boost/core/invoke_swap.hpp>
 #include <boost/static_assert.hpp>
-
 #include <boost/throw_exception.hpp>
 #include <algorithm>
-
+#include <iterator>
+#include <stdexcept>
+#include <cstddef>
 
 namespace boost {
 
@@ -492,4 +491,4 @@ namespace std {
 # pragma warning(pop)
 #endif
 
-#endif /*BOOST_ARRAY_HPP*/
+#endif // #ifndef BOOST_ARRAY_HPP_INCLUDED
