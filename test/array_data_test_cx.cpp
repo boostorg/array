@@ -12,6 +12,10 @@
 
 BOOST_PRAGMA_MESSAGE("Test skipped because BOOST_NO_CXX11_CONSTEXPR is defined")
 
+#elif BOOST_WORKAROUND(BOOST_MSVC, < 1910)
+
+BOOST_PRAGMA_MESSAGE("Test skipped because BOOST_MSVC < 1910")
+
 #else
 
 #define STATIC_ASSERT(...) static_assert(__VA_ARGS__, #__VA_ARGS__)
