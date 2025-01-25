@@ -37,7 +37,3 @@ Note that for standard conforming compilers it is possible to use fewer braces (
 ```cpp
 boost::array<int,4> a = { 1, 2, 3 };
 ```
-
-I'd appreciate any constructive feedback. **Please note: I don't have time to read all boost mails. Thus, to make sure that feedback arrives to me, please send me a copy of each mail regarding this class.**
-
-The code is provided "as is" without expressed or implied warranty.

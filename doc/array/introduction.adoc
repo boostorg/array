@@ -11,11 +11,18 @@ https://www.boost.org/LICENSE_1_0.txt
 :idprefix: introduction_
 :cpp: C++
 
-The {cpp} Standard Template Library STL as part of the {cpp} Standard Library provides a framework for processing algorithms on different kind of containers. However, ordinary arrays don't provide the interface of STL containers (although, they provide the iterator interface of STL containers).
+The {cpp} Standard Template Library STL as part of the {cpp} Standard Library provides a framework for processing algorithms on different kind of containers.
+However, ordinary arrays don't provide the interface of STL containers (although, they provide the iterator interface of STL containers).
 
-As replacement for ordinary arrays, the STL provides class `std::vector`. However, `std::vector<>` provides the semantics of dynamic arrays. Thus, it manages data to be able to change the number of elements. This results in some overhead in case only arrays with static size are needed.
+As replacement for ordinary arrays, the STL provides class `std::vector`.
+However, `std::vector<>` provides the semantics of dynamic arrays.
+Thus, it manages data to be able to change the number of elements.
+This results in some overhead in case only arrays with static size are needed.
 
-In his book, _Generic Programming and the STL_, Matthew H. Austern introduces a useful wrapper class for ordinary arrays with static size, called `block`. It is safer and has no worse performance than ordinary arrays. In _The {cpp} Programming Language_, 3rd edition, Bjarne Stroustrup introduces a similar class, called c_array, which I (http://www.josuttis.com/[Nicolai Josuttis]) present slightly modified in my book _The {cpp} Standard Library - A Tutorial and Reference_, called `carray`. This is the essence of these approaches spiced with many feedback from https://www.boost.org/[boost].
+In his book, _Generic Programming and the STL_, Matthew H. Austern introduces a useful wrapper class for ordinary arrays with static size, called `block`.
+It is safer and has no worse performance than ordinary arrays.
+In _The {cpp} Programming Language_, 3rd edition, Bjarne Stroustrup introduces a similar class, called c_array, which I (http://www.josuttis.com/[Nicolai Josuttis]) present slightly modified in my book _The {cpp} Standard Library - A Tutorial and Reference_, called `carray`.
+This is the essence of these approaches spiced with many feedback from https://www.boost.org/[Boost].
 
 After considering different names, we decided to name this class simply `array`.
 

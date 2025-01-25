@@ -6,7 +6,7 @@ Distributed under the Boost Software License, Version 1.0.
 https://www.boost.org/LICENSE_1_0.txt
 ////
 
-# Array
+# Boost.Array
 Nicolai M. Josuttis
 :toc: left
 :toclevels: 4
@@ -17,7 +17,6 @@ Nicolai M. Josuttis
 :sectanchors:
 
 :leveloffset: +1
-
 
 include::array/introduction.adoc[]
 include::array/reference.adoc[]
