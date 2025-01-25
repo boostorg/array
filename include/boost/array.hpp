@@ -148,11 +148,12 @@ namespace boost {
                 boost::core::invoke_swap(elems[i],y.elems[i]);
         }
 
-        // direct access to data (read-only)
+        // direct access to data
         BOOST_CONSTEXPR const T* data() const BOOST_NOEXCEPT { return elems; }
         BOOST_CXX14_CONSTEXPR T* data() BOOST_NOEXCEPT { return elems; }
 
-        // use array as C array (direct read/write access to data)
+        // obsolete
+        BOOST_DEPRECATED( "please use `data()` instead" )
         T* c_array() BOOST_NOEXCEPT { return elems; }
 
         // assignment with type conversion
@@ -263,11 +264,12 @@ namespace boost {
         void swap (array<T,0>& /*y*/) {
         }
 
-        // direct access to data (read-only)
+        // direct access to data
         BOOST_CONSTEXPR const T* data() const BOOST_NOEXCEPT { return 0; }
         BOOST_CXX14_CONSTEXPR T* data() BOOST_NOEXCEPT { return 0; }
 
-        // use array as C array (direct read/write access to data)
+        // obsolete
+        BOOST_DEPRECATED( "please use `data()` instead" )
         T* c_array() BOOST_NOEXCEPT { return 0; }
 
         // assignment with type conversion
