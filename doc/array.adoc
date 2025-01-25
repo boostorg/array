@@ -19,6 +19,7 @@ Nicolai M. Josuttis
 :leveloffset: +1
 
 include::array/introduction.adoc[]
+include::array/changes.adoc[]
 include::array/reference.adoc[]
 include::array/design_rationale.adoc[]
 include::array/information.adoc[]
