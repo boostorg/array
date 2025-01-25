@@ -49,4 +49,8 @@ run array_get_test.cpp ;
 
 #
 
+compile array_init_test_cx.cpp ;
+
+#
+
 run quick.cpp ;
