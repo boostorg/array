@@ -54,6 +54,7 @@ compile array_copy_test_cx.cpp ;
 compile array_data_test_cx.cpp ;
 compile array_iterator_test_cx.cpp ;
 compile array_size_test_cx.cpp ;
+compile array_access_test_cx.cpp ;
 
 #
 
