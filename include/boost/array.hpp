@@ -78,19 +78,8 @@ namespace boost {
         BOOST_CONSTEXPR const_iterator cend() const BOOST_NOEXCEPT { return elems+N; }
 
         // reverse iterator support
-#if !defined(BOOST_MSVC_STD_ITERATOR) && !defined(BOOST_NO_STD_ITERATOR_TRAITS)
         typedef std::reverse_iterator<iterator> reverse_iterator;
         typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
-#elif defined(_RWSTD_NO_CLASS_PARTIAL_SPEC)
-        typedef std::reverse_iterator<iterator, std::random_access_iterator_tag,
-              value_type, reference, iterator, difference_type> reverse_iterator;
-        typedef std::reverse_iterator<const_iterator, std::random_access_iterator_tag,
-              value_type, const_reference, const_iterator, difference_type> const_reverse_iterator;
-#else
-        // workaround for broken reverse_iterator implementations
-        typedef std::reverse_iterator<iterator,T> reverse_iterator;
-        typedef std::reverse_iterator<const_iterator,T> const_reverse_iterator;
-#endif
 
         reverse_iterator rbegin() BOOST_NOEXCEPT { return reverse_iterator(end()); }
         const_reverse_iterator rbegin() const BOOST_NOEXCEPT {
@@ -210,19 +199,8 @@ namespace boost {
         const_iterator cend() const BOOST_NOEXCEPT { return cbegin(); }
 
         // reverse iterator support
-#if !defined(BOOST_MSVC_STD_ITERATOR) && !defined(BOOST_NO_STD_ITERATOR_TRAITS)
         typedef std::reverse_iterator<iterator> reverse_iterator;
         typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
-#elif defined(_RWSTD_NO_CLASS_PARTIAL_SPEC)
-        typedef std::reverse_iterator<iterator, std::random_access_iterator_tag,
-              value_type, reference, iterator, difference_type> reverse_iterator;
-        typedef std::reverse_iterator<const_iterator, std::random_access_iterator_tag,
-              value_type, const_reference, const_iterator, difference_type> const_reverse_iterator;
-#else
-        // workaround for broken reverse_iterator implementations
-        typedef std::reverse_iterator<iterator,T> reverse_iterator;
-        typedef std::reverse_iterator<const_iterator,T> const_reverse_iterator;
-#endif
 
         reverse_iterator rbegin() BOOST_NOEXCEPT { return reverse_iterator(end()); }
         const_reverse_iterator rbegin() const BOOST_NOEXCEPT {
