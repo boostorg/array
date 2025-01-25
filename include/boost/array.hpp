@@ -331,6 +331,16 @@ namespace boost {
         return true;
     }
 
+#if BOOST_WORKAROUND(BOOST_GCC, < 90000)
+
+    template<class T>
+    BOOST_CXX14_CONSTEXPR bool operator== (const array<T, 0>& x, const array<T, 0>& y)
+    {
+        return true;
+    }
+
+#endif
+
     template<class T, std::size_t N>
     BOOST_CXX14_CONSTEXPR bool operator!= (const array<T,N>& x, const array<T,N>& y) {
         return !(x==y);
@@ -347,6 +357,16 @@ namespace boost {
 
         return false;
     }
+
+#if BOOST_WORKAROUND(BOOST_GCC, < 90000)
+
+    template<class T>
+    BOOST_CXX14_CONSTEXPR bool operator< (const array<T, 0>& x, const array<T, 0>& y)
+    {
+        return false;
+    }
+
+#endif
 
     template<class T, std::size_t N>
     BOOST_CXX14_CONSTEXPR bool operator> (const array<T,N>& x, const array<T,N>& y) {
