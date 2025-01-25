@@ -337,8 +337,15 @@ namespace boost {
     }
 
     template<class T, std::size_t N>
-    BOOST_CXX14_CONSTEXPR bool operator< (const array<T,N>& x, const array<T,N>& y) {
-        return std::lexicographical_compare(x.begin(),x.end(),y.begin(),y.end());
+    BOOST_CXX14_CONSTEXPR bool operator< (const array<T,N>& x, const array<T,N>& y)
+    {
+        for( std::size_t i = 0; i < N; ++i )
+        {
+            if( x[ i ] < y[ i ] ) return true;
+            if( y[ i ] < x[ i ] ) return false;
+        }
+
+        return false;
     }
 
     template<class T, std::size_t N>
