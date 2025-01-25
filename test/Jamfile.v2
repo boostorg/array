@@ -47,7 +47,7 @@ run array_eq_test.cpp ;
 run array_lt_test.cpp ;
 run array_get_test.cpp ;
 
-#
+# C++11 constexpr
 
 compile array_init_test_cx.cpp ;
 compile array_copy_test_cx.cpp ;
@@ -55,6 +55,10 @@ compile array_data_test_cx.cpp ;
 compile array_iterator_test_cx.cpp ;
 compile array_size_test_cx.cpp ;
 compile array_access_test_cx.cpp ;
+
+# C++14 constexpr
+
+compile array_eq_test_cx.cpp ;
 
 #
 
