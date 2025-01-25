@@ -458,13 +458,13 @@ namespace boost {
     }
 
    template <size_t Idx, typename T, size_t N>
-   T &get(boost::array<T,N> &arr) BOOST_NOEXCEPT {
+   BOOST_CXX14_CONSTEXPR T &get(boost::array<T,N> &arr) BOOST_NOEXCEPT {
        BOOST_STATIC_ASSERT_MSG ( Idx < N, "boost::get<>(boost::array &) index out of range" );
        return arr[Idx];
        }
 
    template <size_t Idx, typename T, size_t N>
-   const T &get(const boost::array<T,N> &arr) BOOST_NOEXCEPT {
+   BOOST_CONSTEXPR const T &get(const boost::array<T,N> &arr) BOOST_NOEXCEPT {
        BOOST_STATIC_ASSERT_MSG ( Idx < N, "boost::get<>(const boost::array &) index out of range" );
        return arr[Idx];
        }
