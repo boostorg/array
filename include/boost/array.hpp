@@ -37,15 +37,14 @@
 
 #if BOOST_WORKAROUND(BOOST_MSVC, >= 1400)
 # pragma warning(push)
-# pragma warning(disable:4996) // 'std::equal': Function call with parameters that may be unsafe
 # pragma warning(disable:4510) // boost::array<T,N>' : default constructor could not be generated
-# pragma warning(disable:4610) // warning C4610: class 'boost::array<T,N>' can never be instantiated - user defined constructor required
+# pragma warning(disable:4512) // boost::array<T,N>' : assignment operator could not be generated
+# pragma warning(disable:4610) // class 'boost::array<T,N>' can never be instantiated - user defined constructor required
 #endif
 
 #include <boost/assert.hpp>
 #include <boost/static_assert.hpp>
 #include <boost/throw_exception.hpp>
-#include <algorithm>
 #include <iterator>
 #include <stdexcept>
 #include <utility>
@@ -158,15 +157,29 @@ namespace boost {
 
         // assignment with type conversion
         template <typename T2>
-        array<T,N>& operator= (const array<T2,N>& rhs) {
-            std::copy(rhs.begin(),rhs.end(), begin());
+        array<T,N>& operator= (const array<T2,N>& rhs)
+        {
+            for( std::size_t i = 0; i < N; ++i )
+            {
+                elems[ i ] = rhs.elems[ i ];
+            }
+
             return *this;
         }
 
         // fill with one value
         BOOST_CXX14_CONSTEXPR void fill (const T& value)
         {
-            std::fill_n(begin(),size(),value);
+            // using elems[ 0 ] as a temporary copy
+            // avoids the aliasing opportunity betw.
+            // `value` and `elems`
+
+            elems[ 0 ] = value;
+
+            for( std::size_t i = 1; i < N; ++i )
+            {
+                elems[ i ] = elems[ 0 ];
+            }
         }
 
         // an obsolete synonym for fill

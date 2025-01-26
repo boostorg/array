@@ -5,11 +5,11 @@
  * http://www.boost.org/LICENSE_1_0.txt)
  */
 
+#include <boost/array.hpp>
+#include <boost/core/lightweight_test_trait.hpp>
+#include <algorithm>
 #include <string>
 #include <iostream>
-#include <boost/array.hpp>
-
-#include <boost/core/lightweight_test_trait.hpp>
 
 namespace {
 
