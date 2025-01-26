@@ -374,8 +374,9 @@ namespace boost {
         x.swap(y);
     }
 
-// Specific for boost::array: simply returns its elems data member.
+    // undocumented and obsolete
     template <typename T, std::size_t N>
+    BOOST_DEPRECATED( "please use `elems` instead" )
     T(&get_c_array(boost::array<T,N>& arg))[N]
     {
         return arg.elems;
@@ -383,6 +384,7 @@ namespace boost {
 
     // Const version.
     template <typename T, std::size_t N>
+    BOOST_DEPRECATED( "please use `elems` instead" )
     const T(&get_c_array(const boost::array<T,N>& arg))[N]
     {
         return arg.elems;
