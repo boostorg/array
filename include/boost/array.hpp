@@ -195,6 +195,8 @@ namespace boost {
 
     template< class T >
     class array< T, 0 > {
+      public:
+        struct {} elems; // enables initialization with = {{}}
 
       public:
         // type definitions
