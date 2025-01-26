@@ -43,12 +43,12 @@
 #endif
 
 #include <boost/assert.hpp>
-#include <boost/core/invoke_swap.hpp>
 #include <boost/static_assert.hpp>
 #include <boost/throw_exception.hpp>
 #include <algorithm>
 #include <iterator>
 #include <stdexcept>
+#include <utility>
 #include <cstddef>
 
 namespace boost {
@@ -143,9 +143,9 @@ namespace boost {
         enum { static_size = N };
 
         // swap (note: linear complexity)
-        BOOST_CXX14_CONSTEXPR void swap (array<T,N>& y) {
-            for (size_type i = 0; i < N; ++i)
-                boost::core::invoke_swap(elems[i],y.elems[i]);
+        BOOST_CXX14_CONSTEXPR void swap (array<T,N>& y)
+        {
+            std::swap( elems, y.elems );
         }
 
         // direct access to data
@@ -264,7 +264,8 @@ namespace boost {
         static BOOST_CONSTEXPR size_type max_size() BOOST_NOEXCEPT { return 0; }
         enum { static_size = 0 };
 
-        void swap (array<T,0>& /*y*/) {
+        BOOST_CXX14_CONSTEXPR void swap (array<T,0>& /*y*/)
+        {
         }
 
         // direct access to data
@@ -370,7 +371,7 @@ namespace boost {
 
     // global swap()
     template<class T, std::size_t N>
-    inline void swap (array<T,N>& x, array<T,N>& y) {
+    BOOST_CXX14_CONSTEXPR inline void swap (array<T,N>& x, array<T,N>& y) {
         x.swap(y);
     }
 
