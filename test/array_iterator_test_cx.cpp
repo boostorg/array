@@ -39,20 +39,17 @@ template<class T> void test2()
 {
     constexpr boost::array<T, 0> a = {};
 
-    // iterator access is not constexpr for boost::array<T, 0>
-    // it is for std::array<T, 0>, though, so we should change it
-
     STATIC_ASSERT( a.begin() == a.end() );
     STATIC_ASSERT( a.cbegin() == a.cend() );
 }
 
 int main()
 {
-    // test1<int, 0>();
+    test1<int, 0>();
     test1<int, 1>();
     test1<int, 7>();
 
-    // test2<int>();
+    test2<int>();
 }
 
 #endif
