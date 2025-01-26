@@ -16,3 +16,5 @@ http://www.boost.org/LICENSE_1_0.txt
 * Added `noexcept` and `constexpr` as appropriate.
 * Marked obsolete functions as deprecated.
 * Removed obsolete compiler workarounds.
+* Changed `array<T, 0>::begin()`, `cbegin()`, `end()`, `cend()` to return `nullptr`, enabling `constexpr`.
+  This matches the behavior of `std::array`.
