@@ -19,7 +19,7 @@ namespace boost {
   template<typename T, std::size_t N> class array;
 
   template<typename T, std::size_t N>
-    constexpr void swap(array<T, N>&, array<T, N>&);
+    void swap(array<T, N>&, array<T, N>&);
 
   template<typename T, std::size_t N>
     constexpr bool operator==(const array<T, N>&, const array<T, N>&);
@@ -120,7 +120,7 @@ public:
 
   // modifiers
 
-  constexpr void swap(array<T, N>&);
+  swap(array<T, N>&);
 
   constexpr void fill(const T&);
   void assign(const T&); // deprecated
@@ -290,10 +290,10 @@ Remarks: :: This function is deprecated. Use `data()` instead.
 ### Modifiers
 
 ```
-constexpr void swap(array<T, N>& other);
+void swap(array<T, N>& other);
 ```
 [horizontal]
-Effects: :: for each `i` in `[0..N)`, calls `swap(elems[i], other.elems[i])`.
+Effects: :: `std::swap(elems, other.elems)`.
 Complexity: :: linear in `N`.
 
 ---
@@ -319,7 +319,7 @@ Remarks: :: An obsolete and deprecated spelling of `fill`. Use `fill` instead.
 
 ```
 template<typename T, std::size_t N>
-  constexpr void swap(array<T, N>& x, array<T, N>& y);
+  void swap(array<T, N>& x, array<T, N>& y);
 ```
 [horizontal]
 Effects: :: `x.swap(y)`.
