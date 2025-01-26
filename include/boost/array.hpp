@@ -207,13 +207,13 @@ namespace boost {
         typedef std::ptrdiff_t difference_type;
 
         // iterator support
-        iterator        begin()       BOOST_NOEXCEPT { return       iterator( reinterpret_cast<       T * >( this ) ); }
-        const_iterator  begin() const BOOST_NOEXCEPT { return const_iterator( reinterpret_cast< const T * >( this ) ); }
-        const_iterator cbegin() const BOOST_NOEXCEPT { return const_iterator( reinterpret_cast< const T * >( this ) ); }
+        BOOST_CXX14_CONSTEXPR iterator  begin()       BOOST_NOEXCEPT { return data(); }
+        BOOST_CONSTEXPR const_iterator  begin() const BOOST_NOEXCEPT { return data(); }
+        BOOST_CONSTEXPR const_iterator cbegin() const BOOST_NOEXCEPT { return data(); }
 
-        iterator        end()       BOOST_NOEXCEPT { return  begin(); }
-        const_iterator  end() const BOOST_NOEXCEPT { return  begin(); }
-        const_iterator cend() const BOOST_NOEXCEPT { return cbegin(); }
+        BOOST_CXX14_CONSTEXPR iterator  end()       BOOST_NOEXCEPT { return  begin(); }
+        BOOST_CONSTEXPR const_iterator  end() const BOOST_NOEXCEPT { return  begin(); }
+        BOOST_CONSTEXPR const_iterator cend() const BOOST_NOEXCEPT { return cbegin(); }
 
         // reverse iterator support
         typedef std::reverse_iterator<iterator> reverse_iterator;
