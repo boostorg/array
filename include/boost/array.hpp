@@ -163,12 +163,15 @@ namespace boost {
             return *this;
         }
 
-        // assign one value to all elements
-        void assign (const T& value) { fill ( value ); }    // A synonym for fill
+        // fill with one value
         BOOST_CXX14_CONSTEXPR void fill (const T& value)
         {
             std::fill_n(begin(),size(),value);
         }
+
+        // an obsolete synonym for fill
+        BOOST_DEPRECATED( "please use `fill` instead" )
+        void assign (const T& value) { fill ( value ); }
 
         // check range (may be private because it is static)
         static BOOST_CONSTEXPR bool rangecheck (size_type i) {
@@ -278,8 +281,11 @@ namespace boost {
             return *this;
         }
 
-        // assign one value to all elements
+        // an obsolete synonym for fill
+        BOOST_DEPRECATED( "please use `fill` instead" )
         void assign (const T& value) { fill ( value ); }
+
+        // fill with one value
         BOOST_CXX14_CONSTEXPR void fill (const T& ) {}
 
         // check range (may be private because it is static)
