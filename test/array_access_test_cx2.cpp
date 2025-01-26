@@ -16,36 +16,30 @@ BOOST_PRAGMA_MESSAGE("Test skipped because BOOST_NO_CXX14_CONSTEXPR is defined")
 
 #define STATIC_ASSERT(...) static_assert(__VA_ARGS__, #__VA_ARGS__)
 
-template<class T, std::size_t N> constexpr boost::array<T, N> filled( T const& v )
+template<class T, std::size_t N> constexpr boost::array<T, N> modified( boost::array<T, N> a1 )
 {
-    boost::array<T, N> r = {};
+    a1.front() = 1;
+    a1[ 1 ] = 2;
+    a1.at( 2 ) = 3;
+    a1.back() = 4;
 
-    r.fill( v );
-
-    return r;
+    return a1;
 }
 
 template<class T> void test1()
 {
-    constexpr boost::array<T, 4> a1 = filled<T, 4>( 7 );
+    constexpr boost::array<T, 4> a1 = {};
+    constexpr boost::array<T, 4> a2 = modified( a1 );
 
-    STATIC_ASSERT( a1[0] == 7 );
-    STATIC_ASSERT( a1[1] == 7 );
-    STATIC_ASSERT( a1[2] == 7 );
-    STATIC_ASSERT( a1[3] == 7 );
-}
-
-template<class T> void test2()
-{
-    constexpr boost::array<T, 0> a1 = filled<T, 0>( 7 );
-
-    (void)a1;
+    STATIC_ASSERT( a2[0] == 1 );
+    STATIC_ASSERT( a2[1] == 2 );
+    STATIC_ASSERT( a2[2] == 3 );
+    STATIC_ASSERT( a2[3] == 4 );
 }
 
 int main()
 {
     test1<int>();
-    test2<int>();
 }
 
 #endif

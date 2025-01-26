@@ -10,7 +10,7 @@
 
 #if defined(BOOST_NO_CXX14_CONSTEXPR)
 
-BOOST_PRAGMA_MESSAGE("Test skipped because BOOST_NO_CXX11_CONSTEXPR is defined")
+BOOST_PRAGMA_MESSAGE("Test skipped because BOOST_NO_CXX14_CONSTEXPR is defined")
 
 #else
 

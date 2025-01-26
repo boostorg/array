@@ -60,6 +60,7 @@ compile array_get_test_cx.cpp ;
 # C++14 constexpr
 
 compile array_assign_test_cx.cpp ;
+compile array_access_test_cx2.cpp ;
 compile array_fill_test_cx.cpp ;
 compile array_eq_test_cx.cpp ;
 compile array_lt_test_cx.cpp ;
