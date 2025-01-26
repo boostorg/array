@@ -395,14 +395,6 @@ namespace boost {
         return arg.elems;
     }
 
-    template <class It> std::size_t hash_range(It, It);
-
-    template<class T, std::size_t N>
-    std::size_t hash_value(const array<T,N>& arr)
-    {
-        return boost::hash_range(arr.begin(), arr.end());
-    }
-
    template <size_t Idx, typename T, size_t N>
    BOOST_CXX14_CONSTEXPR T &get(boost::array<T,N> &arr) BOOST_NOEXCEPT {
        BOOST_STATIC_ASSERT_MSG ( Idx < N, "boost::get<>(boost::array &) index out of range" );
