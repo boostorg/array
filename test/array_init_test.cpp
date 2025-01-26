@@ -58,7 +58,7 @@ int main()
     test2<int, 1>();
     test2<int, 7>();
 
-    // test2<int const, 0>();
+    test2<int const, 0>();
 
 #if BOOST_WORKAROUND(BOOST_MSVC, < 1910) || BOOST_WORKAROUND(BOOST_GCC, < 50000)
 
