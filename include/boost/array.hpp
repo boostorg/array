@@ -416,12 +416,14 @@ namespace boost {
 //  If we don't have std::array, I'm assuming that we don't have std::get
 namespace std {
    template <size_t Idx, typename T, size_t N>
+   BOOST_DEPRECATED( "please use `boost::get` instead" )
    T &get(boost::array<T,N> &arr) BOOST_NOEXCEPT {
        BOOST_STATIC_ASSERT_MSG ( Idx < N, "std::get<>(boost::array &) index out of range" );
        return arr[Idx];
        }
 
    template <size_t Idx, typename T, size_t N>
+   BOOST_DEPRECATED( "please use `boost::get` instead" )
    const T &get(const boost::array<T,N> &arr) BOOST_NOEXCEPT {
        BOOST_STATIC_ASSERT_MSG ( Idx < N, "std::get<>(const boost::array &) index out of range" );
        return arr[Idx];
