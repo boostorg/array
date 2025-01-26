@@ -76,11 +76,11 @@ template<class T, std::size_t N> void test()
 
 int main()
 {
-    // test<int, 0>();
+    test<int, 0>();
     test<int, 1>();
     test<int, 7>();
 
-    // test<int const, 0>();
+    test<int const, 0>();
     test<int const, 1>();
     test<int const, 7>();
 

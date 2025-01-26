@@ -49,11 +49,11 @@ template<class T, std::size_t N> void test3()
 
 int main()
 {
-    // test1<int, 0>();
+    test1<int, 0>();
     test1<int, 1>();
     test1<int, 7>();
 
-    // test1<int const, 0>();
+    test1<int const, 0>();
     test1<int const, 1>();
     test1<int const, 7>();
 

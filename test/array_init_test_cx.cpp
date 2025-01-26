@@ -56,7 +56,8 @@ template<class T> void test4()
 
 template<class T> void test5()
 {
-    // constexpr boost::array<T, 0> a = {{}};
+    constexpr boost::array<T, 0> a = {{}};
+    (void)a;
 }
 
 template<class T> void test6()

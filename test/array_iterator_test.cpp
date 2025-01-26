@@ -94,11 +94,11 @@ template<class T> void test2()
 
 int main()
 {
-    // test<int, 0>();
+    test<int, 0>();
     test<int, 1>();
     test<int, 7>();
 
-    // test<int const, 0>();
+    test<int const, 0>();
     test<int const, 1>();
     test<int const, 7>();
 
