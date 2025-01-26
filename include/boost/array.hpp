@@ -303,19 +303,10 @@ namespace boost {
         BOOST_CXX14_CONSTEXPR void fill (const T& ) {}
 
         // check range (may be private because it is static)
-        static reference failed_rangecheck () {
-                std::out_of_range e("attempt to access element of an empty array");
-                boost::throw_exception(e);
-#if defined(BOOST_NO_EXCEPTIONS) || (!defined(BOOST_MSVC) && !defined(__PATHSCALE__))
-                //
-                // We need to return something here to keep
-                // some compilers happy: however we will never
-                // actually get here....
-                //
-                static T placeholder;
-                return placeholder;
-#endif
-            }
+        static reference failed_rangecheck ()
+        {
+            boost::throw_exception( std::out_of_range( "attempt to access element of an empty array" ) );
+        }
     };
 
     // comparisons
