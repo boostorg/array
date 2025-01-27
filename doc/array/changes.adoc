@@ -20,3 +20,4 @@ http://www.boost.org/LICENSE_1_0.txt
   This matches the behavior of `std::array`.
 * Removed local `hash_value` overload; `boost::hash` supports array-like types natively.
 * `array<T, 0>` can now be initialized with `= {{}}`.
+* Added `operator\<\=>`.
