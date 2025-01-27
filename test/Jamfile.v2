@@ -52,8 +52,10 @@ run array7.cpp ;
 
 compile array_constexpr.cpp ;
 
-compile-fail array_getfail1.cpp ;
-compile-fail array_getfail2.cpp ;
+compile-fail array_getfail1.cpp
+  : <warnings>off ;
+compile-fail array_getfail2.cpp
+  : <warnings>off ;
 
 run array_hash.cpp
   : : : [ requires cxx11_noexcept ] ;
