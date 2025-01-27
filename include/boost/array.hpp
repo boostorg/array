@@ -396,6 +396,13 @@ namespace boost {
         return 0 <=> 0; // std::strong_ordering::equal
     }
 
+    template<class T>
+    constexpr auto operator<=> (const array<T,0>& x, const array<T,0>& y)
+        -> decltype( 0 <=> 0 )
+    {
+        return 0 <=> 0; // std::strong_ordering::equal
+    }
+
 #endif
 
     // undocumented and obsolete
