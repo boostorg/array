@@ -5,6 +5,8 @@
  * http://www.boost.org/LICENSE_1_0.txt)
  */
 
+#define BOOST_ALLOW_DEPRECATED_SYMBOLS // get_c_array
+
 #include <string>
 #include <iostream>
 #include <boost/array.hpp>

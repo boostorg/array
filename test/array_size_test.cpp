@@ -15,6 +15,8 @@ template<class T, std::size_t N> void test1()
         BOOST_TEST_EQ( a.size(), N );
         BOOST_TEST_EQ( a.empty(), N == 0 );
         BOOST_TEST_EQ( a.max_size(), N );
+
+        (void)a; // msvc-12.0
     }
 
     {
@@ -23,6 +25,8 @@ template<class T, std::size_t N> void test1()
         BOOST_TEST_EQ( a.size(), N );
         BOOST_TEST_EQ( a.empty(), N == 0 );
         BOOST_TEST_EQ( a.max_size(), N );
+
+        (void)a; // msvc-12.0
     }
 }
 

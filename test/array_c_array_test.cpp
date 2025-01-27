@@ -2,14 +2,15 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt)
 
+#define BOOST_ALLOW_DEPRECATED_SYMBOLS
+
 #include <boost/array.hpp>
 #include <boost/core/lightweight_test.hpp>
 #include <boost/config.hpp>
 #include <boost/config/workaround.hpp>
 #include <cstddef>
 
-// c_array and get_c_array are nonstandard extensions
-// probably need to be deprecated and removed
+// c_array and get_c_array are deprecated nonstandard extensions
 
 template<class T, std::size_t N> void test()
 {

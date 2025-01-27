@@ -2,12 +2,13 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt)
 
+#define BOOST_ALLOW_DEPRECATED_SYMBOLS
+
 #include <boost/array.hpp>
 #include <boost/core/lightweight_test.hpp>
 #include <cstddef>
 
-// assign is a nonstandard equivalent of fill
-// it probably needs to be deprecated and removed
+// assign is a deprecated nonstandard equivalent of fill
 
 template<class T, std::size_t N> void test()
 {

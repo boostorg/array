@@ -7,6 +7,16 @@ import testing ;
 import-search /boost/config/checks ;
 import config : requires ;
 
+project
+    : requirements
+
+        <warnings>extra
+
+        <toolset>msvc:<warnings-as-errors>on
+        <toolset>clang:<warnings-as-errors>on
+        <toolset>gcc:<warnings-as-errors>on
+    ;
+
 #
 
 run array0.cpp ;

@@ -326,7 +326,7 @@ namespace boost {
 #if BOOST_WORKAROUND(BOOST_GCC, < 90000)
 
     template<class T>
-    BOOST_CXX14_CONSTEXPR bool operator== (const array<T, 0>& x, const array<T, 0>& y)
+    BOOST_CXX14_CONSTEXPR bool operator== (const array<T, 0>& /*x*/, const array<T, 0>& /*y*/)
     {
         return true;
     }
@@ -353,7 +353,7 @@ namespace boost {
 #if BOOST_WORKAROUND(BOOST_GCC, < 90000)
 
     template<class T>
-    BOOST_CXX14_CONSTEXPR bool operator< (const array<T, 0>& x, const array<T, 0>& y)
+    BOOST_CXX14_CONSTEXPR bool operator< (const array<T, 0>& /*x*/, const array<T, 0>& /*y*/)
     {
         return false;
     }
@@ -397,7 +397,7 @@ namespace boost {
     }
 
     template<class T>
-    constexpr auto operator<=> (const array<T,0>& x, const array<T,0>& y)
+    constexpr auto operator<=> (const array<T,0>& /*x*/, const array<T,0>& /*y*/)
         -> decltype( 0 <=> 0 )
     {
         return 0 <=> 0; // std::strong_ordering::equal
