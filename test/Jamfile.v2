@@ -41,6 +41,8 @@ project
 
 #
 
+project : requirements <library>/boost/array//boost_array ;
+
 run array0.cpp ;
 run array1.cpp ;
 run array2.cpp ;
@@ -58,7 +60,7 @@ compile-fail array_getfail2.cpp
   : <warnings>off ;
 
 run array_hash.cpp
-  : : : [ requires cxx11_noexcept ] ;
+  : : : <library>/boost/container_hash//boost_container_hash [ requires cxx11_noexcept ] ;
 
 #
 
