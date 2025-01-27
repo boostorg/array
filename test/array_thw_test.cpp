@@ -81,6 +81,10 @@ int main()
     test<int, 1>();
     test<int, 7>();
 
+    // test<float, 0>();
+    test<float, 1>();
+    test<float, 7>();
+
     return boost::report_errors();
 }
 
