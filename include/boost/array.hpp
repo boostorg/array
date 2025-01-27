@@ -381,6 +381,23 @@ namespace boost {
         x.swap(y);
     }
 
+#if defined(__cpp_impl_three_way_comparison) && __cpp_impl_three_way_comparison >= 201907L
+
+    template<class T, std::size_t N>
+    constexpr auto operator<=> (const array<T,N>& x, const array<T,N>& y)
+        -> decltype( x.elems[ 0 ] <=> y.elems[ 0 ] )
+    {
+        for( std::size_t i = 0; i < N; ++i )
+        {
+            auto r = x.elems[ i ] <=> y.elems[ i ];
+            if( r != 0 ) return r;
+        }
+
+        return 0 <=> 0; // std::strong_ordering::equal
+    }
+
+#endif
+
     // undocumented and obsolete
     template <typename T, std::size_t N>
     BOOST_DEPRECATED( "please use `elems` instead" )
