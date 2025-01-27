@@ -10,6 +10,9 @@ import config : requires ;
 project
     : requirements
 
+        <library>/boost/array//boost_array
+        <library>/boost/core//boost_core
+
         <warnings>extra
 
         <toolset>msvc:<warnings-as-errors>on
@@ -40,8 +43,6 @@ project
     ;
 
 #
-
-project : requirements <library>/boost/array//boost_array ;
 
 run array0.cpp ;
 run array1.cpp ;
