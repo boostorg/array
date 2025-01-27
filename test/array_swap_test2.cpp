@@ -6,6 +6,10 @@
 #include <boost/core/lightweight_test.hpp>
 #include <cstddef>
 
+#if defined(_MSC_VER)
+# pragma warning(disable: 4702) // unreachable code
+#endif
+
 template<class T, std::size_t N> void test()
 {
     boost::array<T, N> a1 = {};

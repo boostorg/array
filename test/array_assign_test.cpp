@@ -4,11 +4,15 @@
 
 #define BOOST_ALLOW_DEPRECATED_SYMBOLS
 
+// assign is a deprecated nonstandard equivalent of fill
+
 #include <boost/array.hpp>
 #include <boost/core/lightweight_test.hpp>
 #include <cstddef>
 
-// assign is a deprecated nonstandard equivalent of fill
+#if defined(_MSC_VER)
+# pragma warning(disable: 4702) // unreachable code
+#endif
 
 template<class T, std::size_t N> void test()
 {
