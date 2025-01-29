@@ -8,6 +8,12 @@
 #include <boost/config/workaround.hpp>
 #include <cstddef>
 
+#if defined(__has_include)
+# if __has_include(<compare>)
+#  define HAS_COMPARE
+# endif
+#endif
+
 #if !defined(__cpp_impl_three_way_comparison)
 
 BOOST_PRAGMA_MESSAGE( "Test skipped because __cpp_impl_three_way_comparison is not defined" )
@@ -16,6 +22,11 @@ int main() {}
 #elif !( __cpp_impl_three_way_comparison >= 201907L )
 
 BOOST_PRAGMA_MESSAGE( "Test skipped because __cpp_impl_three_way_comparison is defined to " BOOST_STRINGIZE(__cpp_impl_three_way_comparison) )
+int main() {}
+
+#elif !defined(HAS_COMPARE)
+
+BOOST_PRAGMA_MESSAGE( "Test skipped because <compare> is not available" )
 int main() {}
 
 #else
