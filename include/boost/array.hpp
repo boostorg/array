@@ -51,6 +51,12 @@
 #include <utility>
 #include <cstddef>
 
+#if defined(__cpp_impl_three_way_comparison) && __cpp_impl_three_way_comparison >= 201907L
+# if __has_include(<compare>)
+#  include <compare>
+# endif
+#endif
+
 namespace boost {
 
     template<class T, std::size_t N>
@@ -383,6 +389,7 @@ namespace boost {
     }
 
 #if defined(__cpp_impl_three_way_comparison) && __cpp_impl_three_way_comparison >= 201907L
+# if __has_include(<compare>)
 
     template<class T, std::size_t N>
     constexpr auto operator<=> (const array<T,N>& x, const array<T,N>& y)
@@ -394,16 +401,17 @@ namespace boost {
             if( r != 0 ) return r;
         }
 
-        return 0 <=> 0; // std::strong_ordering::equal
+        return std::strong_ordering::equal;
     }
 
     template<class T>
     constexpr auto operator<=> (const array<T,0>& /*x*/, const array<T,0>& /*y*/)
-        -> decltype( 0 <=> 0 )
+        -> std::strong_ordering
     {
-        return 0 <=> 0; // std::strong_ordering::equal
+        return std::strong_ordering::equal;
     }
 
+# endif
 #endif
 
     // undocumented and obsolete
