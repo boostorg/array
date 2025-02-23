@@ -430,17 +430,62 @@ namespace boost {
         return arg.elems;
     }
 
-   template <size_t Idx, typename T, size_t N>
-   BOOST_CXX14_CONSTEXPR T &get(boost::array<T,N> &arr) BOOST_NOEXCEPT {
-       BOOST_STATIC_ASSERT_MSG ( Idx < N, "boost::get<>(boost::array &) index out of range" );
-       return arr[Idx];
-       }
+    template <size_t Idx, typename T, size_t N>
+    BOOST_CXX14_CONSTEXPR T &get(boost::array<T,N> &arr) BOOST_NOEXCEPT
+    {
+        BOOST_STATIC_ASSERT_MSG ( Idx < N, "boost::get<>(boost::array &) index out of range" );
+        return arr[Idx];
+    }
 
-   template <size_t Idx, typename T, size_t N>
-   BOOST_CONSTEXPR const T &get(const boost::array<T,N> &arr) BOOST_NOEXCEPT {
-       BOOST_STATIC_ASSERT_MSG ( Idx < N, "boost::get<>(const boost::array &) index out of range" );
-       return arr[Idx];
-       }
+    template <size_t Idx, typename T, size_t N>
+    BOOST_CONSTEXPR const T &get(const boost::array<T,N> &arr) BOOST_NOEXCEPT
+    {
+        BOOST_STATIC_ASSERT_MSG ( Idx < N, "boost::get<>(const boost::array &) index out of range" );
+        return arr[Idx];
+    }
+
+    template<class T, std::size_t N>
+    BOOST_CXX14_CONSTEXPR array<T, N> to_array( T const (&a)[ N ] )
+    {
+        array<T, N> r = {};
+
+        for( std::size_t i = 0; i < N; ++i )
+        {
+            r[ i ] = a[ i ];
+        }
+
+        return r;
+    }
+
+#if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
+
+    template<class T, std::size_t N>
+    BOOST_CXX14_CONSTEXPR array<T, N> to_array( T (&&a)[ N ] )
+    {
+        array<T, N> r = {};
+
+        for( std::size_t i = 0; i < N; ++i )
+        {
+            r[ i ] = std::move( a[ i ] );
+        }
+
+        return r;
+    }
+
+    template<class T, std::size_t N>
+    BOOST_CXX14_CONSTEXPR array<T, N> to_array( T const (&&a)[ N ] )
+    {
+        array<T, N> r = {};
+
+        for( std::size_t i = 0; i < N; ++i )
+        {
+            r[ i ] = a[ i ];
+        }
+
+        return r;
+    }
+
+#endif
 
 } /* namespace boost */
 
