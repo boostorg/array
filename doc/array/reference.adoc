@@ -42,6 +42,13 @@ namespace boost {
     constexpr T& get(array<T, N>&) noexcept;
   template<std::size_t Idx, typename T, std::size_t N>
     constexpr const T& get(const array<T, N>&) noexcept;
+
+  template<class T, std::size_t N>
+    constexpr array<T, N> to_array( T const (&)[N] );
+  template<class T, std::size_t N>
+    constexpr array<T, N> to_array( T (&&)[N] );
+  template<class T, std::size_t N>
+    constexpr array<T, N> to_array( T const (&&)[N] );
 }
 ```
 
@@ -415,5 +422,31 @@ template<std::size_t Idx, typename T, std::size_t N>
 [horizontal]
 Mandates: :: `Idx < N`.
 Returns: :: `arr[Idx]`.
+
+---
+
+
+### Creation
+
+```
+template<class T, std::size_t N>
+  constexpr array<T, N> to_array( T const (&a)[N] );
+```
+[horizontal]
+Returns: :: an `array<T, N>` `r` such that for each `i` in `[0..N)`, `r[i]` is copied from `a[i]`.
+
+```
+template<class T, std::size_t N>
+  constexpr array<T, N> to_array( T (&&a)[N] );
+```
+[horizontal]
+Returns: :: an `array<T, N>` `r` such that for each `i` in `[0..N)`, `r[i]` is moved from `std::move(a[i])`.
+
+```
+template<class T, std::size_t N>
+  constexpr array<T, N> to_array( T const (&&a)[N] );
+```
+[horizontal]
+Returns: :: an `array<T, N>` `r` such that for each `i` in `[0..N)`, `r[i]` is copied from `a[i]`.
 
 ---
