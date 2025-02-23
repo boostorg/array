@@ -83,6 +83,7 @@ int main()
     }
 #endif
 
+#if !BOOST_WORKAROUND(BOOST_GCC, < 40900) && !BOOST_WORKAROUND(BOOST_CLANG_VERSION, < 30800)
     {
         boost::array<int, 3> b = boost::to_array({ 1, 2, 3 });
 
@@ -90,6 +91,7 @@ int main()
         BOOST_TEST_EQ( b[1], 2 );
         BOOST_TEST_EQ( b[2], 3 );
     }
+#endif
 
 #if !BOOST_WORKAROUND(BOOST_MSVC, < 1920)
     {
